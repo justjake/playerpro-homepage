@@ -10,6 +10,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="activesupport (v3.2.8, RVM: ruby-1.9.3-p286 [tools-middleman-html5bp-haml]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="addressable (v2.3.2, RVM: ruby-1.9.3-p286 [tools-middleman-html5bp-haml]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bourbon (v3.1.1, RVM: ruby-1.9.3-p286 [tools-middleman-html5bp-haml]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.2.1, RVM: ruby-1.9.3-p286 [tools-middleman-html5bp-haml]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="chunky_png (v1.2.7, RVM: ruby-1.9.3-p286 [tools-middleman-html5bp-haml]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-filter (v0.1.1, RVM: ruby-1.9.3-p286 [tools-middleman-html5bp-haml]) [gem]" level="application" />

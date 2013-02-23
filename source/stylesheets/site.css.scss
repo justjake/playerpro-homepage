@@ -1,30 +1,143 @@
 @import "_vendor/normalize.css";
+@import "bourbon/bourbon";
+
+// webfonts
+// @import url(http://fonts.googleapis.com/css?family=Roboto:700italic,700,300,300italic,100,100italic);
+@import "fonts/quicksand/stylesheet.css";
+
+$font-family: 'Quicksand', 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 
 // color palette
 $white:         #fff;
+$black:         #000;
 $orange:        #f6921d;
 $orange-light:  #f8a622;
 $orange-dark:   #f48118;
 $orange-border: #b97c19;
 
-$burn-umber:    #8c280a;
+$burnt-umber:    #8c280a;
 
 $bg-light:      #f7f7f7;
 $bg-grey:       #eee;
 
+$text-dark:     #333;
+
 $em: 16px;
+@function em($px) {
+  @return $px / $em * 1em;
+}
 
+// helpful for making tons of drop shadows
+@function black($opacity: 1) {
+  @if $opacity == 1 {
+    @return $black
+  }
+  @else {
+    @return rgba($black, $opacity);
+  }
+}
+
+
+// Text styles
+@mixin tagline($size: 1em) {
+  font-weight: bold;
+  color: $burnt-umber;
+  font-size: $size;
+}
+
+
+// Log in menu
+@mixin menu {
+  @include box-sizing(border-box);
+  width: em(225px);
+  padding: em(16px);
+
+  background: $white;
+  box-shadow: 0px 1px 10px black(.14);
+
+  h1 {
+    @include tagline;
+  }
+}
+
+.btn {
+  border: 1px solid $orange-border;
+  border-radius: 2px;
+  color: $white;
+  display: inline-block;
+  font-weight: bold;
+  @include linear-gradient ($orange-light, $orange, $orange-dark);
+  padding: em(13px) em(16px);
+  text-decoration: none;
+  text-shadow: 0 1px 0 $orange-border;
+  -webkit-background-clip: padding-box;
+}
+
+// Global skinning
 body {
-    background: $bg-light;
+  color: $text-dark;
+  background: $bg-light;
+  font-family: $font-family;
 }
 
-nav.global {
-    background: $white;
-    height: 80px / $em * 1em;
+
+// Header
+header.main {
+  background: $white;
+  height: em(80px);
+  color: $burnt-umber;
+
+  .login-menu {
+    @include menu;
+    display: none;
+  }
 }
 
-section.about {
-    h1 {
-        height: 92px / $em * 1em;
-    }
+$section-padding: 25px;
+
+// Splash page
+section.about-the-app {
+  h1 {
+    padding: 1*$em $section-padding;
+
+    margin: 0;
+    background: $orange;
+    color: $white;
+    font-size: em(35px);
+    font-weight: bold;
+  }
+
+  h2 {
+    @include tagline;
+
+    margin: 0;
+    background: rgba($orange, 0.2);
+    padding: 1em em($section-padding);
+  }
+
+  li {
+    margin-bottom: 0.5em;
+  }
+
+  & > p {
+    padding: 0 em($section-padding);
+  }
+}
+
+.features {
+  @include clearfix;
+  background: $bg-grey;
+  padding: em($section-padding);
+  padding-right: em($section-padding - 20px);
+
+  h3 {
+    font-size: 1em;
+    color: $black;
+  }
+
+  .feature {
+    float: left;
+    padding-right: em(20px);
+    width: 140px;
+  }
 }
