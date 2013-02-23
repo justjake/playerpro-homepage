@@ -1,0 +1,30 @@
+@import "_vendor/normalize.css";
+
+// color palette
+$white:         #fff;
+$orange:        #f6921d;
+$orange-light:  #f8a622;
+$orange-dark:   #f48118;
+$orange-border: #b97c19;
+
+$burn-umber:    #8c280a;
+
+$bg-light:      #f7f7f7;
+$bg-grey:       #eee;
+
+$em: 16px;
+
+body {
+    background: $bg-light;
+}
+
+nav.global {
+    background: $white;
+    height: 80px / $em * 1em;
+}
+
+section.about {
+    h1 {
+        height: 92px / $em * 1em;
+    }
+}
