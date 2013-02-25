@@ -1,7 +1,8 @@
 %header.main
   %h1#title
-    %img(src="/images/icon.png" alt="App Icon")
-    PlayerPro
+    %a(href="/" title="PlayerPro - Home")
+      %img(src="images/navbar-app-icon.png" alt="App Icon")
+      %span PlayerPro
 
   %section.login-menu
     %h1 Log In/Sign Up
@@ -29,11 +30,14 @@
 
 .page
   %aside.app-preview
-    #player-card
-      - #TODO
+    .spacing-area
+      #player-card
+        %img(src="images/front-page-card.png" alt="player card")
+        - #TODO
 
   %section.main.about-the-app
-    %h1 PlayerPro
+    %h1
+      %div PlayerPro
     %h2 Manage your sports life.
     :markdown
       PlayerPro is the social network for you, your teammates and your leagues.
@@ -55,7 +59,7 @@
     .features
       .feature
         %img(alt="Player" src="#{lorem.image '140x140'}")
-        %h3 Be a Player
+        %h3 Be a Player.
         %p
           Create your own trading card, start tracking your own sports timeline.
 

@@ -1,11 +1,14 @@
 @import "_vendor/normalize.css";
 @import "bourbon/bourbon";
 
-// webfonts
-// @import url(http://fonts.googleapis.com/css?family=Roboto:700italic,700,300,300italic,100,100italic);
+// CONSTANTS --------------------------------------------------------
+
+// fonts
+@import url(http://fonts.googleapis.com/css?family=Roboto:700italic,700,300,300italic,100,100italic);
 @import "fonts/quicksand/stylesheet.css";
 
 $font-family: 'Quicksand', 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+$font-family: 'Roboto', 'Quicksand', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 
 // color palette
 $white:         #fff;
@@ -22,7 +25,26 @@ $bg-grey:       #eee;
 
 $text-dark:     #333;
 
+// global sizing
 $em: 16px;
+
+// Functions --------------------------------------------------------
+
+// z-index layer managent
+
+@mixin image-replacement {
+  color: transparent;
+  text-shadow: none;
+  overflow: none;
+  text-indent: -100%;
+}
+
+$layer-header: 900;
+@mixin layer($base, $offset: 0, $pos: relative) {
+  position: $pos;
+  z-index: $base + $offset;
+}
+
 @function em($px) {
   @return $px / $em * 1em;
 }
@@ -37,6 +59,11 @@ $em: 16px;
   }
 }
 
+// MIXINS -----------------------------------------------------------
+
+@mixin border-box {
+  @include box-sizing(border-box);
+}
 
 // Text styles
 @mixin tagline($size: 1em) {
@@ -44,7 +71,6 @@ $em: 16px;
   color: $burnt-umber;
   font-size: $size;
 }
-
 
 // Log in menu
 @mixin menu {
@@ -60,17 +86,40 @@ $em: 16px;
   }
 }
 
-.btn {
-  border: 1px solid $orange-border;
+
+@mixin button($desaturate: false) {
+  $border:      $orange-border;
+  $start-color: $orange-light;
+  $mid-color:   $orange;
+  $end-color:   $orange-dark;
+
+  $text-color:  $white;
+  $text-shadow: $orange-border;
+
+  @if $desaturate {
+    $border:      desaturate($border, 100%);
+    $start-color: desaturate($start-color, 100%);
+    $mid-color:   desaturate($mid-color, 100%);
+    $end-color:   desaturate($end-color, 100%);
+
+    $text-shadow: desaturate($text-shadow, 100%);
+  }
+
+
+  border: 1px solid $border;
   border-radius: 2px;
-  color: $white;
+  color: $text-color;
   display: inline-block;
   font-weight: bold;
-  @include linear-gradient ($orange-light, $orange, $orange-dark);
+  @include linear-gradient($start-color, $mid-color, $end-color);
   padding: em(13px) em(16px);
   text-decoration: none;
-  text-shadow: 0 1px 0 $orange-border;
+  text-shadow: 0 1px 0 $text-shadow;
   -webkit-background-clip: padding-box;
+}
+
+.btn {
+  @include button;
 }
 
 // Global skinning
@@ -78,14 +127,41 @@ body {
   color: $text-dark;
   background: $bg-light;
   font-family: $font-family;
+  font-weight: 300;
 }
 
 
 // Header
 header.main {
+  @include border-box;
+  padding-top: em(12px);
+
   background: $white;
   height: em(80px);
   color: $burnt-umber;
+  @include box-shadow(0px 1px 3px black(0.22));
+
+  @include layer($layer-header);
+
+  h1#title {
+    margin: 0;
+
+    a {text-decoration: none}
+
+    img {
+      display: inline-block;
+      vertical-align: text-bottom;
+    }
+
+    span {
+      display: inline-block;
+      @include image-replacement;
+      background-image: url("../images/navbar-logo.png");
+
+      width: 172px;
+      height: 35px;
+    }
+  }
 
   .login-menu {
     @include menu;
@@ -93,10 +169,19 @@ header.main {
   }
 }
 
-$section-padding: 25px;
+$section-padding: 1.5 * $em;
 
 // Splash page
+
+.page {
+  display: table;
+}
+
 section.about-the-app {
+  display: table-cell;
+  width: 50%;
+  vertical-align: top;
+
   h1 {
     padding: 1*$em $section-padding;
 
@@ -105,6 +190,13 @@ section.about-the-app {
     color: $white;
     font-size: em(35px);
     font-weight: bold;
+
+    div {
+      @include image-replacement;
+      background: url("../images/white-logo.png") no-repeat;
+      width: 235px;
+      height: 43px;
+    }
   }
 
   h2 {
@@ -121,6 +213,32 @@ section.about-the-app {
 
   & > p {
     padding: 0 em($section-padding);
+  }
+}
+
+aside.app-preview {
+  display: table-cell;
+
+  background: url("../images/grass-300.jpg") repeat;
+  box-shadow: inset 0px 0px 3em black(0.3);
+  border: 1px solid black;
+
+  .spacing-area {
+    /* because we can't use position: relative with display: table-cell
+       (firefox issue) */
+    padding-top: 80px;
+    text-align: center;
+  }
+
+  #player-card {
+    margin: 0 auto;
+
+    width: 239px;
+    height: 362px;
+
+    border: 10px solid $bg-light;
+    box-shadow: 0px 36px 68px black(0.75);
+    border-radius: 5px;
   }
 }
 
