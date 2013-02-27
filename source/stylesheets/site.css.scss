@@ -1,149 +1,17 @@
+// Front-page styling
+// Jake Teton-Landis
+// <just.1.jake@gmail.com>
+// Febuary 2013
+@import "_globals";
+@import "_forms";
+
+/* Static imports */
 @import "_vendor/normalize.css";
-@import "bourbon/bourbon";
 
-// CONSTANTS --------------------------------------------------------
-
-// fonts
 @import url(http://fonts.googleapis.com/css?family=Roboto:700italic,700,300,300italic,100,100italic);
 @import "fonts/quicksand/stylesheet.css";
 
-$font-family: 'Quicksand', 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-$font-family: 'Roboto', 'Quicksand', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 
-// color palette
-$white:         #fff;
-$black:         #000;
-$orange:        #f6921d;
-$orange-light:  #f8a622;
-$orange-dark:   #f48118;
-$orange-border: #b97c19;
-
-$burnt-umber:    #8c280a;
-
-$bg-light:      #f7f7f7;
-$bg-grey:       #eee;
-
-$text-dark:     #333;
-
-// global sizing
-$em: 16px;
-
-// Functions --------------------------------------------------------
-
-// CSS3
-@mixin backface-visibility($bf) {
-  @include prefixer(backface-visibility, $bf, webkit moz spec);
-}
-
-// z-index layer managent
-
-@mixin image-replacement {
-  color: transparent;
-  text-shadow: none;
-  overflow: none;
-  text-indent: -100%;
-}
-
-$layer-header: 900;
-@mixin layer($base, $offset: 0, $pos: relative) {
-  position: $pos;
-  z-index: $base + $offset;
-}
-
-@function em($px) {
-  @return $px / $em * 1em;
-}
-
-// helpful for making tons of drop shadows
-@function black($opacity: 1) {
-  @if $opacity == 1 {
-    @return $black
-  }
-  @else {
-    @return rgba($black, $opacity);
-  }
-}
-
-// MIXINS -----------------------------------------------------------
-
-@mixin border-box {
-  @include box-sizing(border-box);
-}
-
-// Text styles
-@mixin tagline($size: 1em) {
-  font-weight: bold;
-  color: $burnt-umber;
-  font-size: $size;
-}
-
-// Log in menu
-@mixin menu {
-  @include box-sizing(border-box);
-  width: em(225px);
-  padding: em(16px);
-
-  background: $white;
-  box-shadow: 0px 1px 10px black(.14);
-
-  h1 {
-    @include tagline;
-  }
-}
-
-
-@mixin button($desaturate: false) {
-  $border:      $orange-border;
-  $start-color: $orange-light;
-  $mid-color:   $orange;
-  $end-color:   $orange-dark;
-
-  $text-color:  $white;
-  $text-shadow: $orange-border;
-
-  @if $desaturate {
-    $border:      desaturate($border, 100%);
-    $start-color: desaturate($start-color, 100%);
-    $mid-color:   desaturate($mid-color, 100%);
-    $end-color:   desaturate($end-color, 100%);
-
-    $text-shadow: desaturate($text-shadow, 100%);
-  }
-
-  border: 1px solid $border;
-  border-radius: 2px;
-  color: $text-color;
-  display: inline-block;
-  font-weight: bold;
-  @include linear-gradient($start-color, $mid-color, $end-color);
-  padding: em(13px) em(16px);
-  text-decoration: none;
-  text-shadow: 0 1px 0 $text-shadow;
-  -webkit-background-clip: padding-box;
-
-  &:hover:not(.disabled) {
-    @include linear-gradient(
-      lighten($start-color, 8),
-      lighten($mid-color, 5),
-      lighten($end-color, 3)
-    );
-  }
-
-  &.disabled {
-    background: #eee;
-    text-shadow: none;
-    border-color: #ccc;
-    color: #bbb;
-
-    cursor: default;
-  }
-
-
-}
-
-.btn {
-  @include button;
-}
 
 // Global skinning
 body {
@@ -155,29 +23,40 @@ body {
 
 
 // Header
+$header-box-shadow: 0px 1px 3px black(0.22);
 header.main {
   @include border-box;
-  padding: em(12px);
+  padding: 0 em(12px);
 
   background: $white;
+  line-height: em(80px);
   height: em(80px);
   color: $burnt-umber;
-  @include box-shadow(0px 1px 3px black(0.22));
+  box-shadow: $header-box-shadow;
 
   @include layer($layer-header);
 
   h1#title {
+    float: left;
     margin: 0;
 
-    a {text-decoration: none}
+    a {
+      display: block;
+      text-decoration: none
+    }
 
     img {
       display: inline-block;
-      vertical-align: text-bottom;
+      vertical-align: middle;
+      margin-top: -4px;
+      margin-left: -2px;
+      margin-right: 2px;
+
     }
 
     span {
       display: inline-block;
+      vertical-align: middle;
       @include image-replacement;
       background-image: url("../images/navbar-logo.png");
 
@@ -187,14 +66,46 @@ header.main {
   }
 
   .login-menu {
-    @include menu;
-    display: none;
+    float: right;
+
+    .forgot-password {
+      float: right;
+    }
+
+    h1 {
+      display: inline-block;
+      line-height: 1.5;
+
+      /* text style */
+      @include tagline;
+      font-size: em(12px);
+      text-transform: uppercase;
+
+      /* positioning for the dropdown arrow */
+      margin: 0 1em 0 0;
+      position: relative;
+      padding-right: 1.4em;
+
+      /* drop-down triangle in CSS */
+      &:after {
+        content: "";
+        @include triangle(em(10px, 12px), $burnt-umber, down);
+        @include position(absolute, em(6px, 12px) 0px 0 0);
+      }
+    }
+
+    form {
+      line-height: 1.5;
+      @include position(absolute, 100% em(12px) 0 0);
+      background: $white;
+      box-shadow: $header-box-shadow;
+    }
   }
 }
 
-$section-padding: 1.5 * $em;
 
 // Splash page
+$section-padding: 1.5 * $em;
 
 .page {
   display: table;
@@ -239,8 +150,9 @@ section.about-the-app {
   }
 }
 
-// card flip animation duration
+// card flip and friends
 $flip-time: 1.0s;
+$card-front-layer: 1;
 
 aside.app-preview {
   display: table-cell;
@@ -277,7 +189,7 @@ aside.app-preview {
     @include transition(all $flip-time linear);
 
     .front, .back {
-      position: absolute;
+      @include layer($card-front-layer, $position: absolute);
       width: 100%;
       height: 100%;
       top: 0;
@@ -290,19 +202,27 @@ aside.app-preview {
     }
 
     .back {
+      @include layer($card-front-layer, -1, absolute);
       @include transform(rotateY(180deg));
       background: red;
     }
 
-    /* flip state class */
-    &.front-size {
-      .back {opacity: 0 }
-    }
-    &.back-side, &:hover {
+    &.back-size, &:hover {
       @include transform(rotateY(180deg));
-      .front { opacity: 0 }
-      .back  { opacity: 1 }
+      .back {
+        @include layer($card-front-layer, 1, absolute);
+      }
     }
+
+    /* flip state class */
+    //&.front-size {
+    //  .back {opacity: 0 }
+    //}
+    //&.back-side, &:hover {
+    //  @include transform(rotateY(180deg));
+    //  .front { opacity: 0 }
+    //  .back  { opacity: 1 }
+    //}
   }
 }
 

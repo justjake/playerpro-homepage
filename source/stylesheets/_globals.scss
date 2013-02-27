@@ -1,0 +1,76 @@
+@import "bourbon/bourbon";
+$font-family: 'Quicksand', 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+$font-family: 'Roboto', 'Quicksand', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+// color palette
+$white:         #fff;
+$black:         #000;
+$orange:        #f6921d;
+// button colors
+$orange-light:  #f8a622;
+$orange-dark:   #f48118;
+$orange-border: #b97c19;
+
+$burnt-umber:    #8c280a; // highlight bold
+
+$bg-light:      #f7f7f7;
+$bg-grey:       #eee;     // form footers, boxed zones on normal BG
+
+$text-dark:     #333;
+$text-medium:   #818181;  // text in form footers
+$text-mid:      #c2c2c2;
+
+// global sizing
+$em: 16px;
+
+// Functions --------------------------------------------------------
+
+// CSS3
+@mixin backface-visibility($bf) {
+  @include prefixer(backface-visibility, $bf, webkit moz spec);
+}
+
+// z-index layer managent
+
+@mixin image-replacement {
+  color: transparent;
+  text-shadow: none;
+  overflow: none;
+  text-indent: -100%;
+}
+
+$layer-header: 900;
+@mixin layer($base, $offset: 0, $position: relative) {
+  @if $position {
+    position: $position;
+  }
+  z-index: $base + $offset;
+}
+
+@function em($destination-scale, $local-scale: $em) {
+  @return $destination-scale / $local-scale * 1em;
+}
+
+// helpful for making tons of drop shadows
+@function black($opacity: 1) {
+  @if $opacity == 1 {
+    @return $black
+  }
+  @else {
+    @return rgba($black, $opacity);
+  }
+}
+
+// MIXINS -----------------------------------------------------------
+
+@mixin border-box {
+  @include box-sizing(border-box);
+}
+
+// Text styles
+@mixin tagline($size: 1em) {
+  font-weight: bold;
+  color: $burnt-umber;
+  font-size: $size;
+}
+

@@ -1,0 +1,199 @@
+@import "_globals.scss";
+
+
+// BUTTONS ----------------------------------------------------------
+
+
+// 3-part gradient button with bold shadowed text
+@mixin button(
+$desaturate:  false,
+
+$border:      $orange-border,
+$start-color: $orange-light,
+$mid-color:   $orange,
+$end-color:   $orange-dark,
+
+$text-color:  $white,
+$text-shadow: $orange-border) {
+
+  @if $desaturate {
+    $border:      desaturate($border, 100%);
+    $start-color: desaturate($start-color, 100%);
+    $mid-color:   desaturate($mid-color, 100%);
+    $end-color:   desaturate($end-color, 100%);
+
+    $text-shadow: desaturate($text-shadow, 100%);
+  }
+
+  border: 1px solid $border;
+  border-radius: 2px;
+  color: $text-color;
+  display: inline-block;
+  font-weight: bold;
+  @include linear-gradient($start-color, $mid-color, $end-color);
+  padding: em(13px) em(16px);
+  text-decoration: none;
+  text-shadow: 0 1px 0 $text-shadow;
+  -webkit-background-clip: padding-box;
+
+  &:hover:not(.disabled) {
+    @include linear-gradient(
+        lighten($start-color, 8),
+        lighten($mid-color, 5),
+        lighten($end-color, 3)
+    );
+  }
+
+  &.disabled {
+    background: #eee;
+    text-shadow: none;
+    border-color: #ccc;
+    color: #bbb;
+
+    cursor: default;
+  }
+}
+
+/* requires the following markup:
+  .facebook-button
+    %img(src="/images/facebook-icon.png" alt="Facebook")
+    %span
+      log in with
+      %strong Facebook */
+
+.facebook-button {
+  @include button(
+    $border: #435986,
+    $start-color: #5978b4,
+    $mid-color: #4c67a4,
+    $end-color: #3f5594,
+    $text-shadow: #2c3b64
+  );
+
+  @include clearfix; //STOPPED: 4:08pm
+  padding: 0;
+
+  font-size: em(12px);
+  span {
+    display: block;
+    padding: 11px;
+  }
+  strong {
+    font-size: em($em, 12px);
+  }
+
+  img {
+    display: block;
+    padding: 11px;
+    border-right: 1px solid #435986;
+    margin-right: 11px;
+    float: left;
+
+    width: 37px;
+    heigth: 34px;
+  }
+}
+
+// render general button class
+.btn {
+  @include button;
+}
+
+// FORMS ------------------------------------------------------------
+$field-bg:           #e5e5e5;
+$field-border-color: #b9b9b9;
+$field-border-width: 2px;
+
+$form-spacing:       10px;
+
+@mixin form-field {
+  background: $field-bg;
+  background: rgba($field-bg, 0.5);
+  border: $field-border-width solid $field-border-color;
+  color:  $text-mid;
+  padding: em(5px) em(7px);
+  margin-bottom: em($form-spacing);
+
+  &:focus {
+    background: $white;
+    border-color: $text-dark;
+    color: $text-dark;
+    font-style: normal;
+
+    outline: none;
+  }
+}
+
+// render imputs
+#{$all-text-inputs} {
+  @include form-field;
+}
+
+form {
+  .btn {
+    @include button;
+    font-size: em(14px);
+    padding: em(8px, 14px) em(12px, 16px);
+    margin-bottom: em(10px, 14px);
+  }
+
+  .facebook-button {
+    margin-bottom: em(10px, 14px);
+  }
+
+  .divider {
+    font-size: em(12px);
+    text-transform: uppercase;
+    color: $text-mid;
+    text-align: center;
+    margin-bottom: em(10px, 12px);
+
+    position: relative;
+
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      background: $text-mid;
+      height: 1px;
+      top: 50%;
+    }
+
+    &:before {
+      left: 0;
+      right: 65%;
+    }
+    &:after {
+      right: 0;
+      left: 65%;
+    }
+  }
+
+  footer {
+    font-size: 12px;
+    color: desaturate($burnt-umber, 100%);
+    background: $bg-grey;
+    padding: em($form-spacing, 12px);
+
+    a {
+      color: inherit;
+    }
+  }
+}
+
+// Single-column forms
+$menu-padding: 10px;
+form.menu, .menu form {
+  width: em(225px);
+
+  .btn, .facebook-button {
+    display: block;
+    margin-left: em($menu-padding, 14px);
+    margin-right: em($menu-padding, 14px);
+  }
+
+  #{$all-text-inputs} {
+    margin-left: em($menu-padding);
+    margin-right: em($menu-padding);
+  }
+}
+
