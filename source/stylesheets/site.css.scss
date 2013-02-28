@@ -95,10 +95,12 @@ header.main {
     }
 
     form {
-      line-height: 1.5;
+      line-height: normal;
       @include position(absolute, 100% em(12px) 0 0);
       background: $white;
       box-shadow: $header-box-shadow;
+      @include border-bottom-radius(5px);
+      overflow: none;
     }
   }
 }
@@ -180,15 +182,14 @@ aside.app-preview {
     width: 239px;
     height: 362px;
 
-    border: 10px solid $bg-light;
     box-shadow: 0px 36px 68px black(0.75);
-    border-radius: 5px;
 
     /* set up for the card flip */
     @include transform-style(preserve-3d);
     @include transition(all $flip-time linear);
 
     .front, .back {
+      box-sizing: border-box;
       @include layer($card-front-layer, $position: absolute);
       width: 100%;
       height: 100%;
@@ -196,33 +197,48 @@ aside.app-preview {
       left: 0;
       @include backface-visibility(hidden);
 
+      text-align: left;
+
       /* we will be applying opacity: 0 to hide faces in IE.
          this introduces a delay as part of the transition process */
       @include transition(opacity ($flip-time/2) steps(1));
     }
 
-    .back {
-      @include layer($card-front-layer, -1, absolute);
-      @include transform(rotateY(180deg));
-      background: red;
+    .front {
+      border: 10px solid $bg-light;
+      border-radius: 5px;
+      img { max-width: 100%; }
     }
 
-    &.back-size, &:hover {
+    .back {
+      border-radius: 5px;
+      @include layer($card-front-layer, -1, absolute);
+      @include transform(rotateY(180deg));
+      background: $bg-light;
+
+    }
+
+    &.back-side, &:hover {
       @include transform(rotateY(180deg));
       .back {
         @include layer($card-front-layer, 1, absolute);
       }
     }
 
-    /* flip state class */
-    //&.front-size {
-    //  .back {opacity: 0 }
-    //}
-    //&.back-side, &:hover {
-    //  @include transform(rotateY(180deg));
-    //  .front { opacity: 0 }
-    //  .back  { opacity: 1 }
-    //}
+
+    /* form adjustments */
+    .menu {
+      width: 100%;
+      box-sizing: border-box;
+      position: relative;
+      .divider {
+        margin-top: em(17px, 12px);
+        margin-bottom: em(11px, 12px);
+      }
+      .facebook-button {
+        margin-top: 10px;
+      }
+    }
   }
 }
 

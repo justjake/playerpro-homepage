@@ -25,6 +25,8 @@ $text-shadow: $orange-border) {
     $text-shadow: desaturate($text-shadow, 100%);
   }
 
+  @include box-sizing(border-box);
+
   border: 1px solid $border;
   border-radius: 2px;
   color: $text-color;
@@ -63,34 +65,32 @@ $text-shadow: $orange-border) {
 
 .facebook-button {
   @include button(
-    $border: #435986,
+    $border: #344574,
     $start-color: #5978b4,
     $mid-color: #4c67a4,
     $end-color: #3f5594,
     $text-shadow: #2c3b64
   );
 
-  @include clearfix; //STOPPED: 4:08pm
+  @include clearfix;
   padding: 0;
 
   font-size: em(12px);
   span {
+    float: left;
     display: block;
-    padding: 11px;
+    border-left: 1px solid #344574;
+    padding: 6px 10px;
   }
   strong {
     font-size: em($em, 12px);
+    display: block;
   }
 
   img {
     display: block;
-    padding: 11px;
-    border-right: 1px solid #435986;
-    margin-right: 11px;
     float: left;
-
-    width: 37px;
-    heigth: 34px;
+    padding: 6px 10px;
   }
 }
 
@@ -107,6 +107,8 @@ $field-border-width: 2px;
 $form-spacing:       10px;
 
 @mixin form-field {
+  @include box-sizing(border-box);
+
   background: $field-bg;
   background: rgba($field-bg, 0.5);
   border: $field-border-width solid $field-border-color;
@@ -122,6 +124,34 @@ $form-spacing:       10px;
 
     outline: none;
   }
+}
+
+@mixin divider($center-space-percent: 15%, $color: $text-mid) {
+  text-align: center;
+  position: relative;
+
+  &:before, &:after {
+    content: "";
+    position: absolute;
+    background: $color;
+    height: 1px;
+    top: 50%;
+  }
+
+  &:before {
+    left: 0;
+    right: 50% + $center-space-percent;
+  }
+  &:after {
+    right: 0;
+    left: 50% + $center-space-percent;
+  }
+}
+
+label, form small {
+  font-size: em(10px);
+  text-transform: uppercase;
+  color: $text-mid;
 }
 
 // render imputs
@@ -145,27 +175,9 @@ form {
     font-size: em(12px);
     text-transform: uppercase;
     color: $text-mid;
-    text-align: center;
     margin-bottom: em(10px, 12px);
 
-    position: relative;
-
-    &:before, &:after {
-      content: "";
-      position: absolute;
-      background: $text-mid;
-      height: 1px;
-      top: 50%;
-    }
-
-    &:before {
-      left: 0;
-      right: 65%;
-    }
-    &:after {
-      right: 0;
-      left: 65%;
-    }
+    @include divider;
   }
 
   footer {
@@ -183,17 +195,34 @@ form {
 // Single-column forms
 $menu-padding: 10px;
 form.menu, .menu form {
+  line-height: normal;
   width: em(225px);
+  padding: $menu-padding;
+
+  .divider {
+    @include dont-pad($menu-padding);
+  }
+
+  footer {
+    @include dont-pad($menu-padding, left right bottom);
+  }
 
   .btn, .facebook-button {
     display: block;
-    margin-left: em($menu-padding, 14px);
-    margin-right: em($menu-padding, 14px);
+    width: 100%;
   }
 
   #{$all-text-inputs} {
-    margin-left: em($menu-padding);
-    margin-right: em($menu-padding);
+    width: 100%;
+  }
+
+  label {
+    display: block;
+    padding: em(2px, 10px) 0;
+  }
+
+  .divider + label {
+    margin-top: em(-5px, 10px);
   }
 }
 

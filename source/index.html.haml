@@ -11,7 +11,7 @@
       - # Log in form
       %form.menu(action="/sign-in")
         %a.facebook-button
-          %img(src="/images/facebook-icon.png" alt="Facebook")
+          %img(src="/images/facebook-button-icon.png" alt="Facebook")
           %span
             log in with
             %strong Facebook
@@ -33,11 +33,31 @@
 .page
   %aside.app-preview
     .container
-      #player-card.front-side
+      #player-card.back-side
         .front
           %img(src="images/front-page-card.png" alt="player card")
           - #TODO
         .back
+          %form.menu(action="/user/new")
+            %a.facebook-button
+              %img(src="/images/facebook-button-icon.png" alt="Facebook")
+              %span
+                sign up with
+                %strong Facebook
+
+            .divider
+              or
+
+            %label(for="sign-up-email") Email
+            %input(placeholder="What's your email?" type="text" name="email" id="sign-up-email")
+            %input(placeholder="again, just to be safe" type="text" name="email-verify" id="sign-up-email-verify")
+
+
+            %label(for="sign-up-password") Password
+            %input(placeholder="8 charaters or more" type="password" name="password" id="sign-up-passowrd")
+            %input(placeholder="again, just to be safe" type="password" name="password" id="sign-up-passowrd")
+
+            %input.btn(type="submit" value="Sign Up")
 
   %section.main.about-the-app
     .container
