@@ -54,6 +54,15 @@ $text-shadow: $orange-border) {
 
     cursor: default;
   }
+
+  // disable link states
+  &:visited {
+    color: $text-color;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 /* requires the following markup:

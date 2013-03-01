@@ -16,9 +16,20 @@
 // Global skinning
 body {
   color: $text-dark;
-  background: $bg-light;
   font-family: $font-family;
   font-weight: 300;
+  background: $footer-color;
+}
+
+a {
+  color: $orange-dark;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:visited {
+    color: $orange-border;
+  }
 }
 
 
@@ -115,12 +126,52 @@ header.main {
   }
 }
 
+$footer-link-count: 7;
+footer.main {
+  //color: $text-light;
+  background: $footer-color;
+  font-size: em(14px);
+  padding: 0 1em;
+
+  nav ul {
+    margin: 0;
+    padding: 0;
+    @include clearfix;
+    li {
+      display: block;
+      float: left;
+
+      @include box-sizing(border-box);
+      width: 100% / $footer-link-count;
+      min-width: em(70px, 14px);
+      padding: 1em (em(10px, 14px) / 2);
+
+
+      &:last-child {
+        text-align: right;
+      }
+
+      a {
+        display: block;
+      }
+    }
+  }
+
+  .legal, .copyright {
+    font-size: em(12px, 14px);
+  }
+  .legal { float: right; }
+  .copyright { float: left; }
+}
+
 
 // Splash page
 $section-padding: 1.5 * $em;
 
 .page {
   display: table;
+  box-shadow: $header-box-shadow;
+  background: $bg-light;
 }
 
 section.about-the-app {
