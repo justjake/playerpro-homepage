@@ -8,7 +8,7 @@
 /* Static imports */
 @import "_vendor/normalize.css";
 
-@import url(http://fonts.googleapis.com/css?family=Roboto:700italic,700,300,300italic,100,100italic);
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic);
 @import "fonts/quicksand/stylesheet.css";
 
 
@@ -22,6 +22,7 @@ body {
 }
 
 a {
+  font-weight: 400;
   color: $orange-dark;
   text-decoration: none;
   &:hover {
@@ -128,40 +129,30 @@ header.main {
 
 $footer-link-count: 7;
 footer.main {
-  //color: $text-light;
+  border-top: 1px solid $white;
+  box-shadow: inset 0px 1px 0px black(0.1);
+  color: $text-light;
   background: $footer-color;
+  padding: 1em;
   font-size: em(14px);
-  padding: 0 1em;
 
-  nav ul {
-    margin: 0;
-    padding: 0;
-    @include clearfix;
-    li {
-      display: block;
-      float: left;
-
-      @include box-sizing(border-box);
-      width: 100% / $footer-link-count;
-      min-width: em(70px, 14px);
-      padding: 1em (em(10px, 14px) / 2);
-
-
-      &:last-child {
-        text-align: right;
-      }
-
-      a {
-        display: block;
-      }
+  nav {
+    float: left;
+    ul {
+      margin: 0;
+      padding: 0;
     }
   }
 
-  .legal, .copyright {
-    font-size: em(12px, 14px);
+  p {
+    margin: 0;
   }
-  .legal { float: right; }
-  .copyright { float: left; }
+
+  .legal, .copyright {
+    float: right;
+    clear: right;
+    margin-bottom: 1em;
+  }
 }
 
 

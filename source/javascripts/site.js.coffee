@@ -34,6 +34,41 @@ jQuery('document').ready ($) ->
     $menu.toggle()
     dont_bubble(e)
 
+  $('.login-menu').hover ->
+    $menu.show()
+
   $menu.click(dont_bubble)
+
+
+  # Label-based placeholders
+  # jquery function to convert HTML5 placeholder text into labels for older browsers
+
+  # actions on context of the field
+  show_label = ->
+    if $(this).val() == ''
+      $(this).siblings('label').show()
+
+  hide_label = ->
+    $(this).siblings('label').hide()
+
+  # find placeholder fields and replace them with this structure
+  $('input').filter(-> $(this).attr('placeholder') ).each ->
+    $field = $(this)
+    template = """
+              <div class="label-placeholder">
+                <label for="#{$field.attr('id')}">
+                  #{$field.attr('placeholder')}
+                </label>
+              </div>
+              """
+    $group = $(template)
+    $field.after($group)
+    $group.append($field)
+
+    $field.focus(hide_label)
+    $field.blur(show_label)
+
+
+
 
 

@@ -163,6 +163,23 @@ label, form small {
   color: $text-mid;
 }
 
+/* use labels like placeholders, for older browsers and easier styling.
+   Generally requires Javascript */
+.label-placeholder {
+  position: relative;
+  display: inline-block;
+  label {
+    display: inline-block;
+    font-size: inherit;
+    text-transform: normal;
+    color: $text-mid;
+    padding: em(7px) em(9px);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
 // render imputs
 #{$all-text-inputs} {
   @include form-field;
