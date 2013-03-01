@@ -115,15 +115,17 @@ $field-border-width: 2px;
 
 $form-spacing:       10px;
 
+$field-padding-v: 5px;
+$field-padding-h: 7px;
 @mixin form-field {
   @include box-sizing(border-box);
+  padding: em($field-padding-v) em($field-padding-h);
+  margin-bottom: em($form-spacing);
 
   background: $field-bg;
   background: rgba($field-bg, 0.5);
   border: $field-border-width solid $field-border-color;
   color:  $text-mid;
-  padding: em(5px) em(7px);
-  margin-bottom: em($form-spacing);
 
   &:focus {
     background: $white;
@@ -170,13 +172,17 @@ label, form small {
   display: inline-block;
   label {
     display: inline-block;
+
+    // remove normal styling
     font-size: inherit;
-    text-transform: normal;
+    text-transform: none;
+
     color: $text-mid;
-    padding: em(7px) em(9px);
+    padding: em($field-padding-v + $field-border-width) em($field-padding-h + $field-border-width) !important;
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
   }
 }
 
@@ -229,6 +235,11 @@ form.menu, .menu form {
   .divider {
     @include dont-pad($menu-padding);
   }
+
+  .label-placeholder {
+    display: block;
+  }
+
 
   footer {
     @include dont-pad($menu-padding, left right bottom);

@@ -12,6 +12,29 @@
 @import "fonts/quicksand/stylesheet.css";
 
 
+/* sticky footer */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: table;
+  width: 100%;
+}
+
+header.main, .page, .footer.main {
+  display: table-row;
+  height: 1px;
+  & > .container {
+    display: table-cell;
+  }
+}
+
+.page {
+  height: 100%;
+}
+
 
 // Global skinning
 body {
@@ -127,20 +150,49 @@ header.main {
   }
 }
 
+// Footer
 $footer-link-count: 7;
 footer.main {
-  border-top: 1px solid $white;
-  box-shadow: inset 0px 1px 0px black(0.1);
-  color: $text-light;
-  background: $footer-color;
-  padding: 1em;
+  margin: 2em;
+  margin-bottom: 0;
+  @include clearfix;
+  //border: 3px solid $text-mid;
+  border-bottom: none;
+  background: $bg-grey;
+  padding: 1.5em;
+  padding-bottom: 0;
   font-size: em(14px);
 
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+
   nav {
-    float: left;
+    float: right;
+    width: 70%;
     ul {
       margin: 0;
       padding: 0;
+
+      li {
+        display: inline;
+      }
+
+      a {
+        margin-right: 1em;
+        margin-bottom: 1em;
+        display: inline-block;
+        padding: em(7px) em(9px);
+
+        background: $bg-grey;
+        color: inherit;
+
+        &:hover {
+          background: $white;
+        }
+      }
     }
   }
 
@@ -149,9 +201,12 @@ footer.main {
   }
 
   .legal, .copyright {
-    float: right;
-    clear: right;
+    @include box-sizing(border-box);
+    width: 30%;
+    float: left;
+    clear: left;
     margin-bottom: 1em;
+    padding-right: 1em;
   }
 }
 
@@ -160,9 +215,11 @@ footer.main {
 $section-padding: 1.5 * $em;
 
 .page {
-  display: table;
   box-shadow: $header-box-shadow;
   background: $bg-light;
+  & > .container {
+    display: table;
+  }
 }
 
 section.about-the-app {

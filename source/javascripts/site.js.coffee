@@ -44,15 +44,17 @@ jQuery('document').ready ($) ->
   # jquery function to convert HTML5 placeholder text into labels for older browsers
 
   # actions on context of the field
-  show_label = ->
+  update_label_visibility = ->
     if $(this).val() == ''
       $(this).siblings('label').show()
+    else
+      $(this).siblings('label').hide()
 
   hide_label = ->
     $(this).siblings('label').hide()
 
   # find placeholder fields and replace them with this structure
-  $('input').filter(-> $(this).attr('placeholder') ).each ->
+  $('input').filter(-> $(this).attr('placeholder')).each ->
     $field = $(this)
     template = """
               <div class="label-placeholder">
@@ -61,12 +63,16 @@ jQuery('document').ready ($) ->
                 </label>
               </div>
               """
+    # replace bare field with field inside grouping
     $group = $(template)
     $field.after($group)
     $group.append($field)
+    # and remove native placeholder text
+    $field.attr('placeholder', '')
 
-    $field.focus(hide_label)
-    $field.blur(show_label)
+    $field.focus(update_label_visibility)
+    $field.blur(update_label_visibility)
+    $field.bind("propertychange keyup input paste", update_label_visibility)
 
 
 
