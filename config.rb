@@ -47,11 +47,28 @@ end
 # activate :automatic_image_sizes
 
 # Methods defined in the helpers block are available in templates
-# helpers do
-#   def some_helper
-#     "Helping"
-#   end
-# end
+helpers do
+  def some_helper
+    "Helping"
+  end
+
+  def nav_link(text, to, title = nil)
+    if not title
+      title = text
+    end
+
+    content_tag(:li) do
+      content_tag(:a, text, :href => to, :title => title )
+    end
+  end
+
+  # pass a list of {text: String, to: String, title: String} hashes
+  def nav_list(*args)
+    content_tag(:ul) do
+      args.map{ |a| nav_link(a[:text], a[:to], a[:title]) }.join("\n")
+    end
+  end
+end
 
 set :css_dir, 'stylesheets'
 
