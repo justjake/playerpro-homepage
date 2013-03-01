@@ -16,5 +16,8 @@ jQuery('document').ready ($) ->
 
   # bind handlers
   $overlay.click(hide_form)
+  $('.app-preview .container').click(hide_form)
+  $('.app-preview #player-card').click (e) ->
+    e.stopPropagation()
   $('.show-signup-form').click(show_form)
 

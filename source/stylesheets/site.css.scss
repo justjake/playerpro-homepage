@@ -180,11 +180,10 @@ aside.app-preview {
     text-align: center;
 
     /* required for depth in the 3D card flip */
-    @include perspective(1000);
-
   }
 
   #player-card {
+    @include perspective(500px);
     @include layer($layer-card);
     margin: 0 auto;
 
@@ -193,30 +192,27 @@ aside.app-preview {
     width: 239px + 6px;
     height: 362px;
 
-    box-shadow: 0px 36px 68px black(0.75);
 
-    /* set up for the card flip */
-    @include transform-style(preserve-3d);
-    @include transition(all $flip-time $flip-tween);
 
     .front, .back {
-      box-sizing: border-box;
+      /* set up for the card flip */
+      //@include transform-style(preserve-3d);
+      @include transition(all $flip-time $flip-tween);
+      @include backface-visibility(hidden);
+
+      @include box-sizing(border-box);
       background: $bg-light;
       @include layer($card-front-layer, $position: absolute);
       width: 100%;
       height: 100%;
       top: 0;
       left: 0;
-      @include backface-visibility(hidden);
 
       text-align: left;
-
-      /* we will be applying opacity: 0 to hide faces in IE.
-         this introduces a delay as part of the transition process */
-      @include transition(opacity ($flip-time/2) steps(1));
     }
 
     .front {
+      box-shadow: 0px 36px 68px black(0.75);
       border: 10px solid $bg-light;
       border-radius: 5px;
       img { max-width: 100%; }
@@ -227,11 +223,12 @@ aside.app-preview {
       @include layer($card-front-layer, -1, absolute);
       @include transform(rotateY(180deg));
       background: $bg-light;
-
     }
 
     &.back-side, &:hover {
-      @include transform(rotateY(180deg));
+      .front, .back {
+        @include transform(rotateY(360deg));
+      }
       .back {
         @include layer($card-front-layer, 1, absolute);
       }
@@ -241,15 +238,14 @@ aside.app-preview {
     /* form adjustments */
     .menu {
       width: 100%;
-      box-sizing: border-box;
       position: relative;
       .divider {
         margin-top: em(17px, 12px);
         margin-bottom: em(11px, 12px);
       }
-      .facebook-button {
-        margin-top: 10px;
-      }
+      //.facebook-button {
+      //  margin-top: 10px;
+      //}
     }
   }
 }

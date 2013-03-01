@@ -27,7 +27,7 @@ $em: 16px;
 
 // CSS3
 @mixin backface-visibility($bf) {
-  @include prefixer(backface-visibility, $bf, webkit moz spec);
+  @include prefixer(backface-visibility, $bf, webkit moz ms spec);
 }
 
 // z-index layer managent

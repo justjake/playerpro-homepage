@@ -196,6 +196,7 @@ form {
 $menu-padding: 10px;
 form.menu, .menu form {
   line-height: normal;
+  @include box-sizing(border-box);
   width: em(225px);
   padding: $menu-padding;
 
