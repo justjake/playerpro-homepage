@@ -34,8 +34,8 @@ jQuery('document').ready ($) ->
     $menu.toggle()
     dont_bubble(e)
 
-  $('.login-menu').hover ->
-    $menu.show()
+    # $('.login-menu').hover ->
+    #   $menu.show()
 
   $menu.click(dont_bubble)
 
