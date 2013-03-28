@@ -1,0 +1,116 @@
+/*
+    Layout.scss
+    Page framework definitions
+*/
+
+@import "globals";
+
+$mobile  : new-breakpoint(max-width, 500px);
+$desktop : new-breakpoint(500px);
+$widescreen : new-breakpoint(1400px);
+
+// visual grid for devel
+$visual-grid: true;
+
+$DEVEL: true;
+
+/* Responsive */
+@mixin only-visible-at($breakpoint, $display-mode: block) {
+    display: none;
+    @include media($breakpoint) {
+        display: $display-mode;
+    }
+}
+
+@mixin mobile-only($display-mode: block) {
+    @inlcude only-visible-at($mobile, $display-mode);
+}
+
+@mixin desktop-only($display-mode: block) {
+    @include only-visible-at($desktop, $display-mode);
+}
+
+@mixin widescreen-only($display-mode: block) {
+    @include only-visible-at($widescreen, $display-mode);
+}
+
+.left-data-col, .center-col, .right-aux-col {
+    background: $bg-grey;
+    @include box-sizing(border-box);
+    padding: 0 1em;
+}
+
+/* page columns */
+.left-data-col {
+    @include media($desktop) {
+        @include span-columns(3);
+    }
+}
+
+.center-col {
+    @include media($desktop) {
+        @include span-columns(12 - 3);
+        @include omega;
+    }
+
+    @include media($widescreen) {
+        @include span-columns(12 - 6);
+    }
+}
+
+.right-aux-col {
+    @include span-columns(3);
+    @include omega;
+    @include widescreen-only;
+}
+
+/* carousel */
+.carousel {
+    width: 100%;
+    height: em(300px);
+    overflow: hidden;
+    position: relative;
+
+    background: black(0.9);
+
+    img {
+        width: 100%;
+    }
+
+    caption {
+        @include position(absolute, 0 0px 0px 0px);
+        padding: 1em;
+    }
+        
+
+}
+
+
+/* tabs
+    %nav.tabs
+      ul
+        li
+          a(.active)
+*/
+@mixin tabs {
+    background: $bg-light;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    li {
+        display: inline;
+    }
+
+    a {
+        display: block;
+        float: left;
+
+        border-right: 1px solid $text-mid;
+    }
+}
+
+

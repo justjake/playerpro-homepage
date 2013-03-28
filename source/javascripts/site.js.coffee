@@ -1,3 +1,73 @@
+# Generic tabs controller
+# pass it a div cointaining sections and they will be tab-ified,
+# and the div will have a tabbar prepended to it
+class Tabs
+    $ = jQuery
+    nav = $("""<nav class="tabs"><ul></ul></nav>""")
+
+    slugify = (title) ->
+        title.toLowerCase().replace(/\s+/g, '-').replace(/[^w-]+/g, '')
+
+    constructor: (el) ->
+        @sections = []
+
+        @outer_nav = nav.clone()
+        @nav = @outer_nav.children('ul')
+        @focused = -1
+
+        # route mouse events to controller
+        @nav.on 'click', 'a', (e) => @tab_clicked(e)
+
+        # store tab contents and create nav link
+        for section in $(el).children()
+            section = $(section)
+            title = section.attr('title')
+            @sections.push(section)
+            @nav.append(@tab(title, @sections.length - 1))
+
+        console.log(@sections)
+
+        # focus the first tab
+        @set_focus(0)
+
+        # add the tab bar
+        $(el).prepend(@outer_nav)
+
+
+    tab_clicked: (event) ->
+        console.log(event)
+        event.preventDefault()
+        idx = $(event.target).parent('li').data('tabbed.idx')
+
+        @set_focus(idx)
+
+    set_focus: (idx) ->
+
+        console.log('set focus', idx)
+
+        # negative indexes referece back of array
+        if idx < 0
+            idx += @sections.length
+
+        @focused = idx
+
+        @nav.find('a').removeClass('active')
+        @nav.find('a').filter((o) -> $(o).data('tabbed.idx') == idx).addClass('active')
+
+        for s in @sections
+            s.hide()
+
+        @sections[idx].show()
+
+    tab: (title, idx) ->
+        id = slugify(title)
+        res = $("""<li><a href="##{id}">#{title}</a></li>""")
+        res.data('tabbed.idx', idx)
+        res
+    
+
+
+
 jQuery('document').ready ($) ->
   $card = $('#player-card')
   $overlay = $('<div id="overlay-bg"></div>').hide().prependTo($ 'body')
@@ -75,6 +145,9 @@ jQuery('document').ready ($) ->
     $field.bind("propertychange keyup input paste", update_label_visibility)
 
 
+  window.body_tabs  = []
+  $('.tabbed').each ->
+      body_tabs.push(new Tabs($(this)))
 
 
 
