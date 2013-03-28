@@ -1,3 +1,4 @@
+@import "globals";
 // Splash page
 $section-padding: 1.5 * $em;
 
@@ -151,8 +152,9 @@ aside.app-preview {
   .feature {
     float: left;
     padding-right: em(20px);
-    width: 140px;
+    width: 140px + 20px;
   }
+  
 }
 #overlay-bg {
   @include layer($layer-header, 1);
