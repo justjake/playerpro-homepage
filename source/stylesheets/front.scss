@@ -1,0 +1,162 @@
+// Splash page
+$section-padding: 1.5 * $em;
+
+.page {
+  box-shadow: $header-box-shadow;
+  background: $bg-light;
+  & > .container {
+    display: table;
+  }
+}
+
+section.about-the-app {
+  display: table-cell;
+  width: 50%;
+  vertical-align: top;
+
+  h1 {
+    padding: 1*$em $section-padding;
+
+    margin: 0;
+    background: $orange;
+    color: $white;
+    font-size: em(35px);
+    font-weight: bold;
+
+    div {
+      @include image-replacement;
+      background: url("../images/white-logo.png") no-repeat;
+      width: 235px;
+      height: 43px;
+    }
+  }
+
+  h2 {
+    @include tagline;
+
+    margin: 0;
+    background: rgba($orange, 0.2);
+    padding: 1em em($section-padding);
+  }
+
+  li {
+    margin-bottom: 0.5em;
+  }
+
+  & > .container > p {
+    padding: 0 em($section-padding);
+  }
+}
+
+// card flip and friends
+$flip-time: 0.5s;
+$flip-tween: ease-in-out;
+$card-front-layer: 1;
+$layer-card: $layer-header + 500;
+
+aside.app-preview {
+  display: table-cell;
+
+  background: url("../images/grass-300.jpg") repeat;
+  box-shadow: inset 0px 0px 3em black(0.3);
+  border: 1px solid black;
+
+  .container {
+    @include layer($layer-card);
+    padding: 4em 1em;
+    text-align: center;
+
+    /* required for depth in the 3D card flip */
+  }
+
+  #player-card {
+    @include perspective(500px);
+    @include layer($layer-card);
+    margin: 0 auto;
+
+
+    /* width is sweet-spotted for the specific image right now */
+    width: 239px + 6px;
+    height: 362px;
+
+
+
+    .front, .back {
+      /* set up for the card flip */
+      //@include transform-style(preserve-3d);
+      @include transition(all $flip-time $flip-tween);
+      @include backface-visibility(hidden);
+
+      @include box-sizing(border-box);
+      background: $bg-light;
+      @include layer($card-front-layer, $position: absolute);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+
+      text-align: left;
+    }
+
+    .front {
+      box-shadow: 0px 36px 68px black(0.75);
+      border: 10px solid $bg-light;
+      border-radius: 5px;
+      img { max-width: 100%; }
+    }
+
+    .back {
+      border-radius: 5px;
+      @include layer($card-front-layer, -1, absolute);
+      @include transform(rotateY(180deg));
+      background: $bg-light;
+    }
+
+    &.back-side, &:hover {
+      .front, .back {
+        @include transform(rotateY(360deg));
+      }
+      .back {
+        @include layer($card-front-layer, 1, absolute);
+      }
+    }
+
+
+    /* form adjustments */
+    .menu {
+      width: 100%;
+      position: relative;
+      .divider {
+        margin-top: em(17px, 12px);
+        margin-bottom: em(11px, 12px);
+      }
+      //.facebook-button {
+      //  margin-top: 10px;
+      //}
+    }
+  }
+}
+
+.features {
+  @include clearfix;
+  background: $bg-grey;
+  padding: em($section-padding);
+  padding-right: em($section-padding - 20px);
+
+  h3 {
+    font-size: 1em;
+    color: $black;
+  }
+
+  .feature {
+    float: left;
+    padding-right: em(20px);
+    width: 140px;
+  }
+}
+#overlay-bg {
+  @include layer($layer-header, 1);
+  @include position(fixed, 0px 0px 0px 0px);
+  background: $text-dark;
+  background: black(0.7);
+}
