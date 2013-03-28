@@ -6,7 +6,7 @@ class Tabs
     nav = $("""<nav class="tabs"><ul></ul></nav>""")
 
     slugify = (title) ->
-        title.toLowerCase().replace(/\s+/g, '-').replace(/[^w-]+/g, '')
+        title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '')
 
     constructor: (el) ->
         @sections = []
