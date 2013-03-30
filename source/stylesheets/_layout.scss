@@ -128,29 +128,30 @@ nav.tabs {
 }
 
 /* card */
-$card_scale: 1;
 $card_height: 645px;
 $card_width: 456px;
 
-$w: $card_scale * em($card_width);
-$h: $card_scale * em($card_height);
-
+$card_scale: 1;
 @function c($pixels, $ctx: $em) {
     @return em($pixels * $card_scale, $ctx);
 }
 
 /* measurements taken from the PSD at full size */
-.card {
+@mixin card($card_scale: 1) {
     position: relative;
-    width: $w;
-    height: $h;
+    width: c($card_width);
+    height: c($card_height);
     margin: 1em;
 
     border: c(22px)  solid #fff;
     border-radius: c(14px);
+    box-shadow: 0px 2px 1em black(0.3);
 
     overflow: hidden;
 
+    & > img {
+        width: 100%;
+    }
 
     figcaption {
         @include position(absolute, 0 0px 0px 0px);
@@ -170,6 +171,8 @@ $h: $card_scale * em($card_height);
         margin-left: c(5px);
         margin-top: c(25px);
         margin-right: c(16px);
+
+        width: c(96px);
     }
 
     .number {
@@ -206,6 +209,8 @@ $h: $card_scale * em($card_height);
         border-top: 1px solid #bcbcbc;
         color: $black;
 
+        overflow: hidden;
+
         em {
             color: $orange-mobile;
             font-style: normal;
@@ -218,12 +223,34 @@ $h: $card_scale * em($card_height);
             width: (100% / 4);
             border-right: 1px solid #bcbcbc;
             text-align: center;
-            padding: c(14px) 0;
+            padding: c(12px, c(16px)) 0;
+            font-size: c(16px);
 
             &:last-child {
                 border-right: none;
             }
         }
+
+        .sport img { width: c(31px); }
     }
 }
 
+.card {
+    @include card(1);
+}
+
+$card_scale: 0.8;
+@function c($pixels, $ctx: $em) {
+    @return em($pixels * $card_scale, $ctx);
+}
+.card-small {
+    @include card(0.8);
+}
+
+$card_scale: 0.7;
+@function c($pixels, $ctx: $em) {
+    @return em($pixels * $card_scale, $ctx);
+}
+.card-smallest {
+    @include card(0.7);
+}
