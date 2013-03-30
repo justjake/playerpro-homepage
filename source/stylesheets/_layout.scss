@@ -127,4 +127,103 @@ nav.tabs {
     }
 }
 
+/* card */
+$card_scale: 1;
+$card_height: 645px;
+$card_width: 456px;
+
+$w: $card_scale * em($card_width);
+$h: $card_scale * em($card_height);
+
+@function c($pixels, $ctx: $em) {
+    @return em($pixels * $card_scale, $ctx);
+}
+
+/* measurements taken from the PSD at full size */
+.card {
+    position: relative;
+    width: $w;
+    height: $h;
+    margin: 1em;
+
+    border: c(22px)  solid #fff;
+    border-radius: c(14px);
+
+    overflow: hidden;
+
+
+    figcaption {
+        @include position(absolute, 0 0px 0px 0px);
+        height: c(134px);
+
+        background: $bg-light;
+        background: rgba(#fff, 0.85);
+    }
+
+    h1 {
+        margin-top: c(32px, c(23px));
+        font-size: c(23px);
+    }
+
+    .team {
+        float: left;
+        margin-left: c(5px);
+        margin-top: c(25px);
+        margin-right: c(16px);
+    }
+
+    .number {
+        float: right;
+        position: relative;
+
+        width: c(60px);
+        height: c(60px);
+
+        margin: c(6px) c(4px) 0 0;
+
+        line-height: c(60px);
+        text-align: center;
+
+        .bg {
+            @include position(absolute, 0px 0 0 0px);
+            width: 100%;
+            height: 100%;
+        }
+
+        /* text in front of badge */
+        span {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+        }
+    }
+
+    .stats {
+        @include position(absolute, 0 0px 0px 0);
+        width: c(305px);
+        height: c(63px);
+
+        border-top: 1px solid #bcbcbc;
+        color: $black;
+
+        em {
+            color: $orange-mobile;
+            font-style: normal;
+            display: block;
+        }
+
+        div {
+            @include box-sizing(border-box);
+            float: left;
+            width: (100% / 4);
+            border-right: 1px solid #bcbcbc;
+            text-align: center;
+            padding: c(14px) 0;
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+    }
+}
 
