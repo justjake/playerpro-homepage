@@ -7,7 +7,7 @@
 
 $mobile-width: 768px;
 
-$mobile  : new-breakpoint(max-width, $mobile-width);
+$mobile  : new-breakpoint(max-width $mobile-width);
 $desktop : new-breakpoint($mobile-width);
 $widescreen : new-breakpoint(1400px);
 
@@ -36,33 +36,120 @@ $DEVEL: true;
     @include only-visible-at($widescreen, $display-mode);
 }
 
+/* font sizing */
+@mixin scale-with-baseline($scale, $baseline: 1.5, $mb-ratio: 1) {
+    @if unit($scale) == "" {
+        $scale: $scale * 1em;
+    }
+
+    $s: $scale;
+    $lh: $baseline / $scale * 1em;
+    $mb: $lh * $mb-ratio * 1em;
+
+    @if $lh < 1 {
+        $lh: $lh * 2;
+    }
+
+    font-size: $s;
+    line-height: $lh;
+    margin-bottom: $mb;
+}
+
+@mixin baseline($font-size, $line-height: 1.5) {
+    // scale based on document EMs (usually 16px, see _globals.scss)
+    $fs: em($font-size);
+
+    $header-sizes: (
+        3,
+        2.25,
+        1.5,
+        1.3125,
+        1.125,
+        1
+    );
+
+    /* baseline headings */
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        font-weight: bold;
+    }
+    @for $i from 1 through 6 {
+        h#{$i} {
+            @include scale-with-baseline(
+                nth($header-sizes, $i), 
+                $line-height);
+        }
+    }
+
+    /* text elements */
+    p, blockquote {
+        margin: 0;
+        @include scale-with-baseline(1, 1.5);
+        @include prefixer(hyphes, auto, webkit moz ms spec);
+    }
+
+    /* lists */
+    dl, ol, ul {
+        font-size: $fs;
+        margin: 0 0 ($line-height * 1em);
+        padding: 0;
+    }
+    dd, dt, li {
+        line-height: $line-height * 1em;
+        margin: 0;
+    }
+}
+
+
+
+body {
+    @include baseline($em, 1.5);
+    @include media($mobile) {
+        font-size: em(14px);
+    }
+}
+
+
+/* page columns */
+$data-col-size: em(320px);
+$col-padding: 1em;
+
+.page > .container {
+    @include media($desktop) {
+        padding-left: $data-col-size + $col-padding;
+    }
+
+    @include media($widescreen) {
+        padding-right: $data-col-size + $col-padding;
+    }
+}
+
 .left-data-col, .center-col, .right-aux-col {
     background: $bg-grey;
     @include box-sizing(border-box);
-    padding: 0 1em;
+    @include clearfix;
+    padding: $col-padding $col-padding 0 $col-padding;
 }
 
-/* page columns */
 .left-data-col {
     @include media($desktop) {
-        @include span-columns(3);
+        width: $data-col-size;
+        float: left;
+        margin-left: -1 * ($data-col-size + $col-padding);
     }
 }
 
 .center-col {
     @include media($desktop) {
-        @include span-columns(12 - 3);
+        @include span-columns(12);
         @include omega;
-    }
-
-    @include media($widescreen) {
-        @include span-columns(12 - 6);
     }
 }
 
 .right-aux-col {
-    @include span-columns(3);
-    @include omega;
+    float: right;
+    width: $data-col-size;
+    margin-right: -1 * ($data-col-size + $col-padding);
     @include widescreen-only;
 }
 
@@ -132,22 +219,30 @@ $card_height: 645px;
 $card_width: 456px;
 
 $card_scale: 1;
+// em-based card units
+// for text, spacing, squares
 @function c($pixels, $ctx: $em) {
     @return em($pixels * $card_scale, $ctx);
 }
 
 /* measurements taken from the PSD at full size */
 @mixin card($card_scale: 1) {
+
+    $w: c($card_width);
+    $h: c($card_height);
+
+    @include box-sizing(border-box);
     position: relative;
-    width: c($card_width);
-    height: c($card_height);
-    margin: 1em;
+    width: $w;
+    height: $h;
 
     border: c(22px)  solid #fff;
     border-radius: c(14px);
     box-shadow: 0px 2px 1em black(0.3);
 
     overflow: hidden;
+
+    margin-bottom: $col-padding;
 
     & > img {
         width: 100%;
@@ -162,7 +257,7 @@ $card_scale: 1;
     }
 
     h1 {
-        margin-top: c(32px, c(23px));
+        margin-top: 1em;
         font-size: c(23px);
     }
 
@@ -195,9 +290,13 @@ $card_scale: 1;
 
         /* text in front of badge */
         span {
+            display: inline-block;
             position: relative;
             z-index: 1;
             color: #fff;
+            font-size: c(18px);
+            line-height: 1;
+            vertical-align: middle;
         }
     }
 
@@ -231,7 +330,7 @@ $card_scale: 1;
             }
         }
 
-        .sport img { width: c(31px); }
+        .sport img { width: 2em }
     }
 }
 
@@ -247,10 +346,11 @@ $card_scale: 0.8;
     @include card(0.8);
 }
 
-$card_scale: 0.7;
+$card_scale: ($data-col-size - 2 * $col-padding) / em($card_width);
+@debug $card_scale;
 @function c($pixels, $ctx: $em) {
     @return em($pixels * $card_scale, $ctx);
 }
 .card-smallest {
-    @include card(0.7);
+    @include card($card_scale);
 }
