@@ -1,0 +1,32 @@
+@import "card"; // for height sizing
+/* carousel */
+
+.carousel {
+    width: 100%;
+    height: c($card_height);
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 1em;
+
+    background: black(0.9);
+
+    h1 {
+        @include position(absolute, 0px 0 0 0px);
+        display: inline-block;
+        max-width: 100%;
+        padding: em(0.5em, 3em)  em(1em, 3em);
+
+        color: $white;
+        background: $black;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    caption {
+        @include position(absolute, 0 0px 0px 0px);
+        padding: 1em;
+    }
+}
+

@@ -1,0 +1,143 @@
+// em() support
+@import "globals";
+
+// base dimensions from the PSD
+$card_height: 645px;
+$card_width: 456px;
+
+$card_scale: 1;
+// em-based card units
+// for text, spacing, squares
+// this needs to be redefined every time $card_scale changes
+@function c($pixels, $ctx: $em) {
+    @return em($pixels * $card_scale, $ctx);
+}
+
+@mixin card($card_scale: 1) {
+
+    $w: c($card_width);
+    $h: c($card_height);
+
+    @include box-sizing(border-box);
+    position: relative;
+    width: $w;
+    height: $h;
+
+    border: c(22px)  solid #fff;
+    border-radius: c(14px);
+    box-shadow: 0px 2px 1em black(0.3);
+    color: #222;
+
+    overflow: hidden;
+
+    margin-bottom: $col-padding;
+
+    & > img {
+        width: 100%;
+    }
+
+    figcaption {
+        @include position(absolute, 0 0px 0px 0px);
+        height: c(134px);
+
+        background: $bg-light;
+        background: rgba(#fff, 0.85);
+    }
+
+    h1 {
+        margin-top: 1em;
+        font-size: c(23px);
+    }
+
+    .team {
+        float: left;
+        margin-left: c(5px);
+        margin-top: c(25px);
+        margin-right: c(16px);
+
+        width: c(96px);
+    }
+
+    .number {
+        float: right;
+        position: relative;
+
+        width: c(60px);
+        height: c(60px);
+
+        margin: c(6px) c(4px) 0 0;
+
+        line-height: c(60px);
+        text-align: center;
+
+        .bg {
+            @include position(absolute, 0px 0 0 0px);
+            width: 100%;
+            height: 100%;
+        }
+
+        /* text in front of badge */
+        span {
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            font-size: c(18px);
+            line-height: 1;
+            vertical-align: middle;
+        }
+    }
+
+    .stats {
+        @include position(absolute, 0 0px 0px 0);
+        width: c(305px);
+        height: c(63px);
+
+        border-top: 1px solid #bcbcbc;
+        color: $black;
+
+        overflow: hidden;
+
+        em {
+            color: $orange-mobile;
+            font-style: normal;
+            display: block;
+        }
+
+        div {
+            @include box-sizing(border-box);
+            float: left;
+            width: (100% / 4);
+            border-right: 1px solid #bcbcbc;
+            text-align: center;
+            padding: c(12px, c(16px)) 0;
+            font-size: c(16px);
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+
+        .sport img { width: 2em }
+    }
+}
+
+/* card classes  */
+$card_scale: 0.8;
+@function c($pixels, $ctx: $em) {
+    @return em($pixels * $card_scale, $ctx);
+}
+.card {
+    @include card(0.8);
+}
+
+$card_scale: ($data-col-size - 2 * $col-padding) / em($card_width);
+@function c($pixels, $ctx: $em) {
+    @return em($pixels * $card_scale, $ctx);
+}
+.card-sidebar {
+    @include card($card_scale);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: c($em);
+}
