@@ -2,43 +2,17 @@
 // Jake Teton-Landis
 // <just.1.jake@gmail.com>
 // Febuary 2013
-@import "_globals";
-@import "_forms";
-@import "_layout";
-@import "_card";
+@import "globals";
+@import "forms";
+@import "layout";
+@import "widgets";
 
 /* Static imports */
 @import "_vendor/normalize.css";
 
 // Disabled for offline development
-// @import url(http://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic);
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic);
 @import "fonts/quicksand/stylesheet.css";
-
-
-/* sticky footer */
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  display: table;
-  width: 100%;
-}
-
-header.main, .page, .footer.main {
-  display: table-row;
-  height: 1px;
-  & > .container {
-    display: table-cell;
-    position: relative;
-  }
-}
-
-.page {
-  height: 100%;
-}
-
 
 // Global skinning
 body {
@@ -62,16 +36,17 @@ a {
 
 
 // Header
+$global-header-height: 80px;
 header.main {
 
   background: $white;
-  line-height: em(80px);
+  line-height: em($global-header-height);
   color: $burnt-umber;
 
   & > .container {
-      height: em(80px);
+      height: em($global-header-height);
       @include layer($layer-header);
-      padding: 0 em(12px);
+      padding: 0 1em;
       box-shadow: $header-box-shadow;
   }
 
@@ -105,6 +80,8 @@ header.main {
 
       width: 172px;
       height: 35px;
+
+      margin: ($global-header-height - 35px) / 2 0
     }
   }
 

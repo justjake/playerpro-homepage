@@ -1,13 +1,16 @@
-/* tabs
-    %nav.tabs
-      ul
-        li
-          a(.active)
+/* Tab structure, as HAML:
+
+%nav.tabs
+  ul
+    li
+      a[.active]
+
 */
 .tabbed {
-    background: $bg-light;
+    background: $white;
     & > section {
         padding: 0 1em;
+        @include clearfix;
     }
 }
 

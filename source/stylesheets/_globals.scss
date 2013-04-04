@@ -50,8 +50,6 @@ $layer-header: 900;
   @include prefixer(backface-visibility, $bf, webkit moz ms spec);
 }
 
-// z-index layer managent
-
 
 @function em($destination-scale, $local-scale: $em) {
   @return $destination-scale / $local-scale * 1em;
@@ -99,4 +97,67 @@ $layer-header: 900;
     position: $position;
   }
   z-index: $base + $offset;
+}
+
+// FONT BASELINE ----------------------------------------------------
+@mixin scale-with-baseline($scale, $baseline: 1.5, $mb-ratio: 1, $ctx: 1) {
+    @if unit($scale) == "" {
+        $scale: $scale * 1em;
+    }
+
+    $s: $scale / $ctx;
+    $lh: $baseline / $s * 1em;
+    $mb: $lh * $mb-ratio * 1em;
+
+    @if $lh < 1 {
+        $lh: $lh * 2;
+    }
+
+    font-size: $s;
+    line-height: $lh;
+    margin-bottom: $mb;
+}
+
+@mixin baseline($font-size, $line-height: 1.5) {
+    $fs: em($font-size);
+
+    $header-sizes: (
+        3,
+        2.25,
+        1.5,
+        1.3125,
+        1.125,
+        1
+    );
+
+    /* baseline headings */
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        font-weight: bold;
+    }
+    @for $i from 1 through 6 {
+        h#{$i} {
+            @include scale-with-baseline(
+                nth($header-sizes, $i), 
+                $line-height);
+        }
+    }
+
+    /* text elements */
+    p, blockquote {
+        margin: 0;
+        @include scale-with-baseline(1, 1.5);
+        @include prefixer(hyphes, auto, webkit moz ms spec);
+    }
+
+    /* lists */
+    dl, ol, ul {
+        font-size: $fs;
+        margin: 0 0 ($line-height * 1em);
+        padding: 0;
+    }
+    dd, dt, li {
+        line-height: $line-height * 1em;
+        margin: 0;
+    }
 }

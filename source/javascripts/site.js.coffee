@@ -4,6 +4,7 @@
 class Tabs
     $ = jQuery
     nav = $("""<nav class="tabs"><ul></ul></nav>""")
+    active = 'active'
 
     slugify = (title) ->
         title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '')
@@ -51,8 +52,8 @@ class Tabs
 
         @focused = idx
 
-        @nav.find('a').removeClass('active')
-        @nav.find('a').filter((o) -> $(o).data('tabbed.idx') == idx).addClass('active')
+        @nav.find('a').removeClass(active)
+        $(@nav.find('a')[idx]).addClass(active)
 
         for s in @sections
             s.hide()
