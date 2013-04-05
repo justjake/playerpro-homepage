@@ -14,12 +14,15 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic);
 @import "fonts/quicksand/stylesheet.css";
 
-// Global skinning
+/* basic global styles */
 body {
   color: $text-dark;
   font-family: $font-family;
   font-weight: 300;
   background: $footer-color;
+
+  // basic baseline stuff
+  @include baseline($em, 1.5);
 }
 
 a {
@@ -35,171 +38,6 @@ a {
 }
 
 
-// Header
-$global-header-height: 80px;
-header.main {
-
-  background: $white;
-  line-height: em($global-header-height);
-  color: $burnt-umber;
-
-  & > .container {
-      height: em($global-header-height);
-      @include layer($layer-header);
-      padding: 0 1em;
-      box-shadow: $header-box-shadow;
-  }
-
-
-  h1#title {
-    float: left;
-    margin: 0;
-
-    a {
-      display: block;
-      text-decoration: none
-    }
-
-    img { 
-      display: inline-block;
-      vertical-align: middle;
-      margin-top: -4px;
-      margin-left: -2px;
-      margin-right: 2px;
-      max-height: 100%;
-
-      max-width: 100%;
-
-    }
-
-    span {
-      display: inline-block;
-      vertical-align: middle;
-      @include image-replacement;
-      background-image: url("../images/navbar-logo.png");
-
-      width: 172px;
-      height: 35px;
-
-      margin: ($global-header-height - 35px) / 2 0
-    }
-  }
-
-  /* global search box */
-  .search {
-    // TODO
-    background: red;
-  }
-
-  .login-menu {
-    float: right;
-    position: relative;
-    z-index: 1;
-
-    /* simple menu display for JS-free users */
-    .no-js &:hover {
-      form {
-        display: block;
-      }
-    }
-    .forgot-password {
-      float: right;
-    }
-
-    h1 {
-      display: inline-block;
-      line-height: 1.5;
-      cursor: pointer;
-
-      /* text style */
-      @include tagline;
-      font-size: em(12px);
-      text-transform: uppercase;
-
-      /* positioning for the dropdown arrow */
-      margin: 0 1em 0 0;
-      position: relative;
-      padding-right: 1.4em;
-
-      /* drop-down triangle in CSS */
-      &:after {
-        content: "";
-        @include triangle(em(10px, 12px), $burnt-umber, down);
-        @include position(absolute, em(6px, 12px) 0px 0 0);
-      }
-    }
-
-    form {
-      display: none;
-
-      line-height: normal;
-      @include position(absolute, 100% em(12px) 0 0);
-      background: $white;
-      box-shadow: 0px 2px 4px black(0.4);
-      @include border-bottom-radius(5px);
-      overflow: hidden;
-    }
-  }
-}
-
-// Footer
-$footer-link-count: 7;
-footer.main {
-  margin: 2em;
-  margin-bottom: 0;
-  @include clearfix;
-  //border: 3px solid $text-mid;
-  border-bottom: none;
-  background: $bg-grey;
-  padding: 1.5em;
-  padding-bottom: 0;
-  font-size: em(14px);
-
-  opacity: 0.5;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  nav {
-    float: right;
-    width: 70%;
-    ul {
-      margin: 0;
-      padding: 0;
-
-      li {
-        display: inline;
-      }
-
-      a {
-        margin-right: 1em;
-        margin-bottom: 1em;
-        display: inline-block;
-        padding: em(7px) em(9px);
-
-        background: $bg-grey;
-        color: inherit;
-
-        &:hover {
-          background: $white;
-        }
-      }
-    }
-  }
-
-  p {
-    margin: 0;
-  }
-
-  .legal, .copyright {
-    @include box-sizing(border-box);
-    width: 30%;
-    float: left;
-    clear: left;
-    margin-bottom: 1em;
-    padding-right: 1em;
-  }
-}
-
-
+// styling implementations
+@import "partials/header";
+@import "partials/footer";

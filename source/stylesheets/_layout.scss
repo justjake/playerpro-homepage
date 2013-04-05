@@ -7,9 +7,10 @@
 
 $mobile-width: 768px;
 
+$iphone  : new-breakpoint(max-width 480px);
 $mobile  : new-breakpoint(max-width $mobile-width);
 $desktop : new-breakpoint($mobile-width);
-$widescreen : new-breakpoint(1400px);
+$widescreen : new-breakpoint(1300px);
 
 // visual grid for devel
 $DEVEL: true;
@@ -56,6 +57,10 @@ header.main, .page, .footer.main {
 
 .page {
   height: 100%;
+
+  & > .container {
+      min-height: 100%;
+  }
 }
 
 
@@ -96,10 +101,9 @@ $col-padding: 1em;
     @include widescreen-only(table-cell);
 }
 
-/* body styling */
+/* shrink everything for small phones */
 body {
-    @include baseline($em, 1.5);
-    @include media($mobile) {
+    @include media($iphone) {
         font-size: em(14px);
     }
 }
@@ -112,4 +116,11 @@ body {
 .left-data-col {
     background: #444;
     color: $text-mid;
+}
+
+/* hide carousel on mobile: defer to card for visual content */
+.center-col .carousel {
+    @include media($mobile) {
+        display: none;
+    }
 }
