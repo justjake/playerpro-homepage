@@ -68,10 +68,9 @@ header.main, .page, .footer.main {
 $data-col-size: em(320px);
 $col-padding: 1em;
 
-.page > .container {
-    @include media($desktop) {
-        @include row(table)
-    }
+.player-layout {
+    display: table;
+    width: 100%;
 }
 
 .left-data-col, .center-col, .right-aux-col {
@@ -119,8 +118,9 @@ body {
 }
 
 /* hide carousel on mobile: defer to card for visual content */
-.center-col .carousel {
+.carousel {
     @include media($mobile) {
         display: none;
     }
 }
+

@@ -1,0 +1,130 @@
+@import "../forms";
+
+/** DEMO STYLES **/
+
+// no column colors 
+.left-data-col, .right-aux-col {
+    background: none;
+    color: $text-dark;
+}
+
+.center-col {
+    @include media($desktop) {
+        padding-top: 0;
+        padding-left: 0;
+    }
+    @include media($widescreen) {
+        padding-right: 0;
+    }
+}
+
+
+.card-sidebar {
+    /* stick into the header carousel */
+    @include media($desktop) {
+        margin-top: -1 * (381px + 13px * 2 - 84px);
+    }
+    margin-bottom: 0;
+}
+
+.left-data-col dl {
+    margin-top: 1.5em;
+    @include clearfix;
+    dt, dd {
+        width: 50%;
+        float: left;
+    }
+    dt {
+        font-size: 0.9em;
+    }
+}
+
+.followers {
+    overflow: hidden;
+    color: $text-dark;
+    background: #cfd8de;
+    border: 1px solid #222;
+    border-radius: 5px;
+    padding: .6em .6em 0;
+
+    @include clearfix;
+
+    h4 {
+        text-align: right;
+        font-weight: normal;
+        margin: 0;
+        @include dont-pad(.6 * $em, top left right);
+        padding: 0.2em;
+        background: $bg-light;
+        margin-bottom: .6 * $em;
+        border-bottom: 1px solid $text-dark;
+    }
+
+
+    img {
+        clear: both;
+        width: 10%;
+    }
+
+    span {
+        width: 50%;
+        text-align: right;
+    }
+
+    a.follow {
+      @include button(
+        $border: $text-dark,
+        $start-color: #fff,
+        $mid-color: #eee,
+        $end-color: #ddd,
+        $text-shadow: #fff,
+        $text-color: $text-dark
+      );
+      font-weight: normal;
+      font-size: 1em;
+      padding: 0.2em 0.4em;
+      
+      width: 25%;
+      text-align: center;
+    }
+    img, span, a.follow {
+        display: block;
+        float: left;
+        margin-right: 5%;
+        margin-bottom: 0.6em;
+    }
+}
+
+/* center col */
+.carousel-preview {
+    margin-top: 0.75em;
+    @include clearfix;
+    a {
+        display: block;
+        height: 100px;
+        width: 100px;
+        padding-bottom: 0.25em;
+        overflow: hidden;
+        float: left;
+        margin-right: 0.75em;
+        &.active {
+            border-bottom: 0.25em solid $orange;
+            margin-bottom: 0.5em;
+        }
+        margin-bottom: 0.75em;
+    }
+
+    img {
+        max-height: 100%;
+    }
+}
+
+nav.tabs {
+    background: none;
+    a {
+        text-transform: uppercase;
+        font-weight: normal;
+        border: none;
+    }
+}
+    

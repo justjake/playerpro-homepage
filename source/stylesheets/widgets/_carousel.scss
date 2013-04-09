@@ -2,13 +2,15 @@
 /* carousel */
 
 .carousel {
-    width: 100%;
-    height: c($card_height);
+    height: em(500px);
     overflow: hidden;
     position: relative;
-    margin-bottom: 1em;
+    @include clearfix;
 
     background: black(0.9);
+
+    white-space: nowrap;
+    padding-left: 1px;
 
     h1 {
         @include position(absolute, 0px 0 0 0px);
@@ -20,8 +22,17 @@
         background: $black;
     }
 
+    /* contains the images and prevents them from wrapping */
+    .images {
+        @include position(absolute, 0px 0 0px 0px);
+        width: 9001px;
+    }
+
+
     img {
-        width: 100%;
+        margin-right: 1px;
+        height: 100%;
+        float: left;
     }
 
     caption {
