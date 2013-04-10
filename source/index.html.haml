@@ -1,36 +1,51 @@
 ---
 title: Player Page
 ---
-
 %header.main
   .container
     %h1#title
       %a(href="/" title="PlayerPro - Home")
         %span PlayerPro
 
-    %section.login-menu
-      %h1 Log In
+    %img#dummy-toolbar(src="/images/demo-toolbar.png")
+/  %form#search
+/    %input(type="text" placeholder="Search for a player or team")
+/
+/  %section.demo-toolbar
+/    %a(href="#apps")
+/      Apps
+/
+/  %a(href="#favourites")
+/      Favourites
+/
+/   .user
+/     %img(src="images/user-photo.jpg")
+/     .username
+/       Mike Kennett
 
-      - # Log in form
-      %form.menu(action="/sign-in")
-        %a.facebook-button
-          %img(src="/images/facebook-button-icon.png" alt="Facebook")
-          %span
-            log in with
-            %strong Facebook
-
-        .divider
-          or
-
-        %input(placeholder="Email" type="text" name="email" id="sign-in-email")
-        %input(placeholder="Password" type="password" name="password" id="sign-in-passowrd")
-        %input.btn(type="submit" value="Log In")
-
-        %footer
-          %a.sign-up(href="/sign-up")
-            Sign Up
-          %a.forgot-password(href="/forgot-password")
-            forgot password?
+/    %section.login-menu
+/      %h1 Log In
+/
+/      - # Log in form
+/      %form.menu(action="/sign-in")
+/        %a.facebook-button
+/          %img(src="/images/facebook-button-icon.png" alt="Facebook")
+/          %span
+/            log in with
+/            %strong Facebook
+/
+/        .divider
+/          or
+/
+/        %input(placeholder="Email" type="text" name="email" id="sign-in-email")
+/        %input(placeholder="Password" type="password" name="password" id="sign-in-passowrd")
+/        %input.btn(type="submit" value="Log In")
+/
+/        %footer
+/          %a.sign-up(href="/sign-up")
+/            Sign Up
+/          %a.forgot-password(href="/forgot-password")
+/            forgot password?
     
 .page
   / table-cell
@@ -40,7 +55,7 @@ title: Player Page
     .carousel
       %h1 Fernando Torres
       .images
-        - (1..8).each do |i|
+        - (0..8).each do |i|
           %img(alt="picture featuring Fernando Torres" src="/images/torres/#{i}.jpg")
 
     / Layout table-view
@@ -95,20 +110,23 @@ title: Player Page
 
         / tower add
         .ad.tower
-          %img(src="/images/ad-tower.jpg")
+          %img(src="/images/add-tower.jpg")
 
 
       .center-col
 
         .carousel-preview
-          - (1..8).each do |i|
+          - (0..8).each do |i|
             %a(href="#carousel/#{i}.jpg" class="#{'active' if i == 3}")
               %img(alt="picture featuring Fernando Torres" src="/images/torres/#{i}.jpg")
 
+        %hr
 
         .tabbed
           %section(title="Latest")
-            %h2 Latest
+            
+            %img#center-shim(src="/images/image-shiv-center.png")
+
             :markdown
               Prototype in progress. Features a fluid, responsive design: try resizing your browser window.
 
@@ -152,7 +170,10 @@ title: Player Page
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
       .right-aux-col
-        %h1 right col
+        %img(src="/images/add-357-121.jpg")
+        %img(src="/images/add-362-302.jpg")
+        %img(src="/images/upcoming-games.png")
+
 
 
 %footer.main

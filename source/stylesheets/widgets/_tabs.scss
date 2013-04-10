@@ -41,7 +41,7 @@ nav.tabs {
         font-weight: bold;
         text-decoration: none;
 
-        &.active, &:active {
+        &.active {
             color: $white;
             background: $orange;
         }

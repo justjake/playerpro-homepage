@@ -1,6 +1,11 @@
 @import "../forms";
 
 /** DEMO STYLES **/
+$demo-grey-border: #a8a8a8;
+
+body, .center-col {
+    background: $white;
+}
 
 // no column colors 
 .left-data-col, .right-aux-col {
@@ -43,9 +48,10 @@
     overflow: hidden;
     color: $text-dark;
     background: #cfd8de;
-    border: 1px solid #222;
+    border: 1px solid $demo-grey-border;
     border-radius: 5px;
     padding: .6em .6em 0;
+    margin-bottom: 1.5em;
 
     @include clearfix;
 
@@ -57,7 +63,7 @@
         padding: 0.2em;
         background: $bg-light;
         margin-bottom: .6 * $em;
-        border-bottom: 1px solid $text-dark;
+        border-bottom: 1px solid $demo-grey-border;
     }
 
 
@@ -73,7 +79,7 @@
 
     a.follow {
       @include button(
-        $border: $text-dark,
+        $border: $demo-grey-border,
         $start-color: #fff,
         $mid-color: #eee,
         $end-color: #ddd,
@@ -127,4 +133,40 @@ nav.tabs {
         border: none;
     }
 }
+
+.tabbed > section {
+    padding: 0;
+}
     
+
+hr {
+    border: none;
+    height: 1px;
+    background: $demo-grey-border;
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+/* oh no image shim everything that is un-done */
+.right-aux-col img, .ad img  {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 1.5em;
+        max-width: 100%;
+        @include desktop-only;
+    
+}
+$t-h: 60px;
+$d-h: 40px;
+#dummy-toolbar {
+    max-height: $d-h;
+    float: right;
+    margin: (($t-h - $d-h) / 2) 0;
+
+    @include desktop-only;
+}
+
+#center-shim {
+    max-width: 100%;
+    margin-bottom: 1.5em;
+}
