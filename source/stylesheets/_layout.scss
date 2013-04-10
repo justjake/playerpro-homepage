@@ -96,7 +96,8 @@ $col-padding: 1em;
 }
 
 .right-aux-col {
-    width: $data-col-size;
+    //width: $data-col-size;
+    width: 365px;
     @include widescreen-only(table-cell);
 }
 

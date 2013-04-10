@@ -75,6 +75,7 @@ body, .center-col {
     span {
         width: 50%;
         text-align: right;
+        font-size: 1.1em;
     }
 
     a.follow {
@@ -169,4 +170,11 @@ $d-h: 40px;
 #center-shim {
     max-width: 100%;
     margin-bottom: 1.5em;
+}
+.upcoming-games {
+    text-transform: uppercase;
+    color: $white;
+    background: $orange;
+    padding: 0.2em 0.4em;
+    font-size: 1.1em;
 }
