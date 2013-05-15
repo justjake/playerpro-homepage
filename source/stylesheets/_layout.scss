@@ -104,6 +104,7 @@ $col-padding: 10px;
     @include media($desktop) {
         display: table-cell;
     }
+    max-width: 480px;
 }
 
 .right-aux-col {
