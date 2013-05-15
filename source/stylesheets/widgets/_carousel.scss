@@ -2,11 +2,12 @@
 /* carousel */
 
 .carousel {
+    @include module;
     width: 100%;
     height: c($card_height);
     overflow: hidden;
     position: relative;
-    margin-bottom: 1em;
+    margin-bottom: $col-padding;
 
     background: black(0.9);
 

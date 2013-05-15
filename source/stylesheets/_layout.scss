@@ -5,12 +5,14 @@
 
 @import "globals";
 
+$iphone-width: 480px;
 $mobile-width: 768px;
 
-$iphone  : new-breakpoint(max-width 480px);
-$mobile  : new-breakpoint(max-width $mobile-width);
-$desktop : new-breakpoint($mobile-width);
-$widescreen : new-breakpoint(1300px);
+$iphone  : new-breakpoint(max-width $iphone-width);
+$mobile  : $iphone;
+// $mobile  : new-breakpoint(max-width $mobile-width);
+$desktop : new-breakpoint($iphone-width);
+$widescreen : new-breakpoint(1000px);
 
 // visual grid for devel
 $DEVEL: true;
@@ -65,12 +67,18 @@ header.main, .page, .footer.main {
 
 
 /* page columns */
-$data-col-size: em(320px);
-$col-padding: 1em;
+$data-col-size: 200px; // 200px intended
+$right-aux-col-size: 290px;
+$col-padding: 10px;
 
-.page > .container {
+.page > .container, footer.main > .container, header.main > .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: block;
     @include media($desktop) {
-        @include row(table)
+        padding-left: $col-padding;
+        //padding-left: 10px;
+        // @include row(table)
     }
 }
 
@@ -78,15 +86,17 @@ $col-padding: 1em;
     @include box-sizing(border-box);
     @include clearfix;
 
-    background: $bg-grey;
     padding: $col-padding $col-padding 0 $col-padding;
     vertical-align: top;
+    position: relative;
 }
 
 .left-data-col {
     @include media($desktop) {
         display: table-cell;
         width: $data-col-size;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
@@ -97,8 +107,10 @@ $col-padding: 1em;
 }
 
 .right-aux-col {
-    width: $data-col-size;
+    width: $right-aux-col-size;
     @include widescreen-only(table-cell);
+    padding-left: 0;
+    padding-right: 0;
 }
 
 /* shrink everything for small phones */
@@ -109,13 +121,27 @@ body {
 }
 
 /* column styling */
+
 .center-col {
-    background: $bg-light;
 }
 
 .left-data-col {
-    background: #444;
-    color: $text-mid;
+}
+
+.right-aux-col {
+    // @TODO move module definition elsewhere
+    .module {
+        @include module;
+        @include box-sizing(border-box);
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        width: $right-aux-col-size;
+
+        border-radius: 0;
+        padding: $col-padding;
+        border-left: 1px solid #ddd;
+    }
 }
 
 /* hide carousel on mobile: defer to card for visual content */

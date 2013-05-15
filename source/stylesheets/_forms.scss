@@ -178,7 +178,7 @@ label, form small {
     text-transform: none;
 
     color: $text-mid;
-    padding: em($field-padding-v + $field-border-width) em($field-padding-h + $field-border-width) !important;
+    padding: ($field-padding-v + $field-border-width) ($field-padding-h + $field-border-width) !important;
     position: absolute;
     top: 0;
     left: 0;

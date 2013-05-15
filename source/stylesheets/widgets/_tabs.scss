@@ -7,7 +7,7 @@
 
 */
 .tabbed {
-    background: $white;
+    @include module;
     & > section {
         padding: 0 1em;
         @include clearfix;

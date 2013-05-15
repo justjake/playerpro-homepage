@@ -1,24 +1,34 @@
 // Header
 // loaded from site.css.scss
 
-$global-header-height: 80px;
+$global-header-height: 40px;
 header.main {
 
-  background: $white;
-  line-height: em($global-header-height);
-  color: $burnt-umber;
+  .shadow-hack {
+      @include layer($layer-header);
+      position: absolute;
+      width: 100%;
+      height: $global-header-height;
+      background: $white;
+      box-shadow: $header-box-shadow;
+  }
 
   & > .container {
+      line-height: em($global-header-height);
+      height: $global-header-height;
+      color: $burnt-umber;
       height: em($global-header-height);
       @include layer($layer-header);
       padding: 0 1em;
-      box-shadow: $header-box-shadow;
   }
 
 
   h1#title {
     float: left;
     margin: 0;
+    max-height: $global-header-height;
+    font-size: 1em;
+    line-height: $global-header-height;
 
     a {
       display: block;
@@ -45,8 +55,6 @@ header.main {
 
       width: 172px;
       height: 35px;
-
-      margin: ($global-header-height - 35px) / 2 0
     }
   }
 

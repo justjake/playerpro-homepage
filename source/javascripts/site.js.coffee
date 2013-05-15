@@ -125,25 +125,28 @@ jQuery('document').ready ($) ->
     $(this).siblings('label').hide()
 
   # find placeholder fields and replace them with this structure
-  $('input').filter(-> $(this).attr('placeholder')).each ->
-    $field = $(this)
-    template = """
-              <div class="label-placeholder">
-                <label for="#{$field.attr('id')}">
-                  #{$field.attr('placeholder')}
-                </label>
-              </div>
-              """
-    # replace bare field with field inside grouping
-    $group = $(template)
-    $field.after($group)
-    $group.append($field)
-    # and remove native placeholder text
-    $field.attr('placeholder', '')
+  # if the browser doesn't support HTML5 placeholders
+  # TODO: test the appearance of the fake placeholders
+  if not Modernizr.input.placeholder
+      $('input').filter(-> $(this).attr('placeholder')).each ->
+        $field = $(this)
+        template = """
+                  <div class="label-placeholder">
+                    <label for="#{$field.attr('id')}">
+                      #{$field.attr('placeholder')}
+                    </label>
+                  </div>
+                  """
+        # replace bare field with field inside grouping
+        $group = $(template)
+        $field.after($group)
+        $group.append($field)
+        # and remove native placeholder text
+        $field.attr('placeholder', '')
 
-    $field.focus(update_label_visibility)
-    $field.blur(update_label_visibility)
-    $field.bind("propertychange keyup input paste", update_label_visibility)
+        $field.focus(update_label_visibility)
+        $field.blur(update_label_visibility)
+        $field.bind("propertychange keyup input paste", update_label_visibility)
 
 
   window.body_tabs  = []
