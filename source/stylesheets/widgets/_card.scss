@@ -113,7 +113,7 @@ $card_scale: 1;
             width: (100% / 4);
             border-right: 1px solid #bcbcbc;
             text-align: center;
-            padding: c(12px, c(16px)) 0;
+            padding: c(10px) 0;
             font-size: c(16px);
 
             &:last-child {
@@ -145,108 +145,3 @@ $card_scale: ($data-col-size) / em($card_width);
     margin-bottom: c($em);
 }
 
-.card-tiny {
-    $w: $data-col-size;
-    $h: 290px;
-
-    @include module;
-    @include box-sizing(border-box);
-
-    position: relative;
-    width: $w;
-    height: $h;
-    overflow: hidden;
-
-    color: #222;
-    margin-bottom: $col-padding;
-
-    /* stretch image, assuming H > W. Bottom will be cropped by overflow: hidden */
-    & > img {
-        width: 100%;
-    }
-
-    /* holds all the player data */
-    figcaption {
-        @include position(absolute, 0 0px 0px 0px);
-        background: $bg-light;
-        background: rgba(#fff, 0.85);
-    }
-
-    h1 {
-        font-size: em(14px);
-        line-height: 1.5;
-    }
-
-    .team {
-        float: left;
-        margin-left: c(5px);
-        margin-top: c(25px);
-        margin-right: c(16px);
-
-        width: c(96px);
-    }
-
-    .number {
-        float: right;
-        position: relative;
-
-        width: c(60px);
-        height: c(60px);
-
-        margin: c(6px) c(4px) 0 0;
-
-        line-height: c(60px);
-        text-align: center;
-
-        .bg {
-            @include position(absolute, 0px 0 0 0px);
-            width: 100%;
-            height: 100%;
-        }
-
-        /* text in front of badge */
-        span {
-            display: inline-block;
-            position: relative;
-            z-index: 1;
-            color: #fff;
-            font-size: c(18px);
-            line-height: 1;
-            vertical-align: middle;
-        }
-    }
-
-    .stats {
-        @include position(absolute, 0 0px 0px 0);
-        width: c(305px);
-        height: c(63px);
-
-        border-top: 1px solid #bcbcbc;
-        color: $black;
-
-        overflow: hidden;
-
-        em {
-            color: $orange-mobile;
-            font-style: normal;
-            display: block;
-        }
-
-        div {
-            @include box-sizing(border-box);
-            float: left;
-            width: (100% / 4);
-            border-right: 1px solid #bcbcbc;
-            text-align: center;
-            padding: c(12px, c(16px)) 0;
-            font-size: c(16px);
-
-            &:last-child {
-                border-right: none;
-            }
-        }
-
-        .sport img { width: 2em }
-    }
-
-} 

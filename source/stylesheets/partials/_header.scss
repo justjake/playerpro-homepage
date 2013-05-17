@@ -19,10 +19,45 @@ header.main {
       line-height: em($global-header-height);
       height: $global-header-height;
       color: $burnt-umber;
-      height: em($global-header-height);
-      padding: 0 1em;
+
+      @include media($desktop) {
+          padding: 0 $col-padding;
+      }
+
   }
 
+  .left-col, .center-col, .right-col {
+      padding: 0;
+      @include clearfix;
+  }
+
+  .left-col {
+      float: left;
+      padding-left: $col-padding;
+      @include media($desktop) {
+          padding-right: $col-padding * 3;
+      }
+      @include media($widescreen) {
+          width: $data-col-size;
+      }
+  }
+
+
+  .mid-col{
+      overflow: hidden;
+      padding-left: $col-padding;
+  }
+
+  .right-col {
+      float: right;
+      padding-left: $col-padding;
+      @include media($desktop) {
+          padding-left: $col-padding * 3;
+      }
+      @include media($widescreen) {
+          width: $right-aux-col-size;
+      }
+  }
 
   h1#title {
     float: left;
@@ -30,6 +65,7 @@ header.main {
     max-height: $global-header-height;
     font-size: 1em;
     line-height: $global-header-height;
+    @include box-sizing(border-box);
 
     a {
       display: block;
@@ -55,21 +91,36 @@ header.main {
       background-image: url("../images/logo-20h.png");
       background-repeat: no-repeat;
 
-      width: 172px;
+      width: 110px;
       height: 20px;
     }
   }
 
   /* global search box */
   .search {
-    // TODO
-    background: red;
+    //border-left: 1px solid $text-mid;
+    //border-right: 1px solid $text-mid;
+    height: 100%;
+    //padding: 0 $col-padding;
+    font-size: 90%;
+    input {
+        background: transparent;
+        border-width: 1px;
+        margin-bottom: 0;
+        width: 100%;
+
+        border-color: #ddd;
+
+        //height: 100%;
+        //padding-left: $col-padding;
+        //padding-right: $col-padding;
+
+    }
   }
 
   .login-menu {
     float: right;
     position: relative;
-    z-index: -1;
 
     /* simple menu display for JS-free users */
     .no-js &:hover {
@@ -92,7 +143,6 @@ header.main {
       text-transform: uppercase;
 
       /* positioning for the dropdown arrow */
-      margin: 0 1em 0 0;
       position: relative;
       padding-right: 1.4em;
 
@@ -108,7 +158,7 @@ header.main {
       display: none;
 
       line-height: normal;
-      @include position(absolute, 100% em(12px) 0 0);
+      @include position(absolute, 100% (-1 * $col-padding) 0 0);
       background: $white;
       box-shadow: 0px 2px 4px black(0.4);
       @include border-bottom-radius(5px);
