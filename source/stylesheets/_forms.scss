@@ -165,27 +165,6 @@ label, form small {
   color: $text-mid;
 }
 
-/* use labels like placeholders, for older browsers and easier styling.
-   Generally requires Javascript */
-.label-placeholder {
-  position: relative;
-  display: inline-block;
-  label {
-    display: inline-block;
-
-    // remove normal styling
-    font-size: inherit;
-    text-transform: none;
-
-    color: $text-mid;
-    padding: ($field-padding-v + $field-border-width) ($field-padding-h + $field-border-width) !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-}
-
 // render imputs
 #{$all-text-inputs} {
   @include form-field;
@@ -235,11 +214,6 @@ form.menu, .menu form {
   .divider {
     @include dont-pad($menu-padding);
   }
-
-  .label-placeholder {
-    display: block;
-  }
-
 
   footer {
     @include dont-pad($menu-padding, left right bottom);
