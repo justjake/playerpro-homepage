@@ -7,8 +7,15 @@ footer.main {
 
     opacity: 0.8;
 
+    a {
+        color: desaturate($orange, 100%);
+    }
+
     .container {
         margin-top: 2em;
+        & > div {
+            padding: $col-padding;
+        }
     }
 
     li {

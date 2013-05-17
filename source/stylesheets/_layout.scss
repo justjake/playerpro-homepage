@@ -6,13 +6,20 @@
 @import "globals";
 
 $iphone-width: 480px;
-$mobile-width: 768px;
+
+$global-header-height: 40px;
+$page-size: 1070px;
+$col-padding: 10px;
+
+$data-col-size: 280px;
+$right-aux-col-size: 210px;
+$calculated-center-col-size: $page-size - ($col-padding + $data-col-size + $right-aux-col-size);
 
 $iphone  : new-breakpoint(max-width $iphone-width);
 $mobile  : $iphone;
 // $mobile  : new-breakpoint(max-width $mobile-width);
 $desktop : new-breakpoint($iphone-width);
-$widescreen : new-breakpoint(1000px);
+$widescreen : new-breakpoint($page-size);
 
 // visual grid for devel
 $DEVEL: true;
@@ -61,24 +68,29 @@ header.main, .page, .footer.main {
   height: 100%;
 
   & > .container {
+      padding-top: $global-header-height;
       min-height: 100%;
   }
 }
 
+header.main {
+    @include position(fixed, 0px 0px 0 0px);
+    display: block;
+}
 
 /* page columns */
-$data-col-size: 200px; // 200px intended
-$right-aux-col-size: 290px;
-$col-padding: 10px;
 
 .page > .container, footer.main > .container, header.main > .container {
-    max-width: 1000px;
     margin: 0 auto;
     display: block;
     @include media($desktop) {
         padding-left: $col-padding;
+        max-width: $col-padding + $data-col-size + $calculated-center-col-size;
         //padding-left: 10px;
         // @include row(table)
+    }
+    @include media($widescreen) {
+        max-width: $page-size;
     }
 }
 
@@ -86,7 +98,12 @@ $col-padding: 10px;
     @include box-sizing(border-box);
     @include clearfix;
 
-    padding: $col-padding $col-padding 0 $col-padding;
+    @include media($desktop) {
+        padding: $col-padding $col-padding 0 $col-padding;
+    }
+    padding-top: $col-padding;
+
+
     vertical-align: top;
     position: relative;
 }
@@ -104,15 +121,14 @@ $col-padding: 10px;
     @include media($desktop) {
         display: table-cell;
     }
-    max-width: 480px;
 }
 
 .right-aux-col {
     width: $right-aux-col-size;
     @include widescreen-only(table-cell);
-    padding-left: 0;
-    padding-right: 0;
 }
+
+
 
 /* shrink everything for small phones */
 body {
@@ -127,6 +143,16 @@ body {
 }
 
 .left-data-col {
+    .module {
+        @include module;
+        @include box-sizing(border-box);
+        padding: $col-padding;
+
+        p:last-child {
+            margin: 0;
+        }
+
+    }
 }
 
 .right-aux-col {
@@ -143,6 +169,13 @@ body {
         padding: $col-padding;
         border-left: 1px solid #ddd;
     }
+}
+
+.page .right-aux-col {
+    @include module;
+    border-radius: 0;
+    vertical-align: middle;
+    text-align: center;
 }
 
 /* hide carousel on mobile: defer to card for visual content */

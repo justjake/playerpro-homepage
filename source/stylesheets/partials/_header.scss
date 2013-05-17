@@ -1,24 +1,25 @@
 // Header
 // loaded from site.css.scss
 
-$global-header-height: 40px;
 header.main {
+
+   z-index: $layer-header;
 
   .shadow-hack {
       @include layer($layer-header);
-      position: absolute;
-      width: 100%;
+      @include position(absolute, 0px 0px 0 0px);
       height: $global-header-height;
       background: $white;
       box-shadow: $header-box-shadow;
   }
 
   & > .container {
+      @include layer($layer-header + 1);
+      top: 0;
       line-height: em($global-header-height);
       height: $global-header-height;
       color: $burnt-umber;
       height: em($global-header-height);
-      @include layer($layer-header);
       padding: 0 1em;
   }
 
@@ -51,10 +52,11 @@ header.main {
       display: inline-block;
       vertical-align: middle;
       @include image-replacement;
-      background-image: url("../images/navbar-logo.png");
+      background-image: url("../images/logo-20h.png");
+      background-repeat: no-repeat;
 
       width: 172px;
-      height: 35px;
+      height: 20px;
     }
   }
 
@@ -67,7 +69,7 @@ header.main {
   .login-menu {
     float: right;
     position: relative;
-    z-index: 1;
+    z-index: -1;
 
     /* simple menu display for JS-free users */
     .no-js &:hover {
