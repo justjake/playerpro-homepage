@@ -5,50 +5,56 @@ title: Player Page
 %header.main
   .shadow-hack
   .container
-    %h1#title
-      %a(href="/" title="PlayerPro - Home")
-        %span PlayerPro
+    .left-col
+      %h1#title
+        %a(href="#/" title="PlayerPro - Home")
+          %span PlayerPro
 
-    %section.login-menu
-      %h1 Log In
 
-      - # Log in form
-      %form.menu(action="/sign-in")
-        %a.facebook-button
-          %img(src="/images/facebook-button-icon.png" alt="Facebook")
-          %span
-            log in with
-            %strong Facebook
+    .right-col
+      %section.login-menu
+        %h1 Log In
 
-        .divider
-          or
+        - # Log in form
+        %form.menu(action="/sign-in")
+          %a.facebook-button
+            %img(src="./images/facebook-button-icon.png" alt="Facebook")
+            %span
+              log in with
+              %strong Facebook
 
-        %input(placeholder="Email" type="text" name="email" id="sign-in-email")
-        %input(placeholder="Password" type="password" name="password" id="sign-in-passowrd")
-        %input.btn(type="submit" value="Log In")
+          .divider
+            or
 
-        %footer
-          %a.sign-up(href="/sign-up")
-            Sign Up
-          %a.forgot-password(href="/forgot-password")
-            forgot password?
+          %input(placeholder="Email" type="text" name="email" id="sign-in-email")
+          %input(placeholder="Password" type="password" name="password" id="sign-in-passowrd")
+          %input.btn(type="submit" value="Log In")
+
+          %footer
+            %a.sign-up(href="#/sign-up")
+              Sign Up
+            %a.forgot-password(href="#/forgot-password")
+              forgot password?
     
+    .mid-col
+      %form.search
+        %input(type="text" id="search" placeholder="Search...")
 
 .page
   .container
 
     .left-data-col
       %figure.card-sidebar
-        %img(src="/images/fernando.jpg" alt="Fernando Torres")
+        %img(src="./images/fernando.jpg" alt="Fernando Torres")
         %figcaption
-          %img.team(src="/images/team-chelsea.png" alt="Chelsea")
+          %img.team(src="./images/team-chelsea.png" alt="Chelsea")
           .number
-            %img.bg(src="/images/icon-number-badge.png" alt="background for player number")
+            %img.bg(src="./images/icon-number-badge.png" alt="background for player number")
             %span 9
           %h1 Fernando Torres
           .stats
             .sport
-              %img(src="/images/sport-soccer.png" alt="Football")
+              %img(src="./images/sport-soccer.png" alt="Football")
             .games
               Games
               %em 231
@@ -72,7 +78,7 @@ title: Player Page
 
       .carousel
         /%h1 Fernando Torres
-        %img(alt="demo" src="/images/torres-winning.jpg")
+        %img(alt="demo" src="./images/torres-winning.jpg")
 
       .tabbed
         %section(title="Wall")
@@ -108,7 +114,7 @@ title: Player Page
     .right-aux-col
       :markdown
         We are currently testing advanced profile features.
-      %form(style="text-align: center")
+      %form
         %input(type="email" id="email-advanced-form" placeholder="Enter your email")
         %br
         %input.btn(type="submit" value="Sign Up")
@@ -117,12 +123,9 @@ title: Player Page
 %footer.main
   .container
     .left-data-col
+      %img(src="./images/logo-20h-subtle.png" alt="PlayerPro")
       .copyright
-        %p Sportsquid, Inc. © 2013
-      .legal
-        :markdown
-          By using PlayerPro you agree with our [User Agreement](http://www.getplayerpro.com/)
-          and [Privacy Policy](http://www.getplayerpro.com/).
+        %p © 2013, Sportsquid Inc. 
     .center-col
       %nav
         %ul
@@ -133,6 +136,9 @@ title: Player Page
           = nav_link "Developers", "/developers/"
           = nav_link "Like us on Facebook", "http://www.facebook.com/getplayerpro"
           = nav_link "Follow us on Twitter", "http://www.twitter.com/getplayerpro"
-    .right-aux-col
+      .legal
+        :markdown
+          By using PlayerPro you agree with our [User Agreement](http://www.getplayerpro.com/)
+          and [Privacy Policy](http://www.getplayerpro.com/).
 
 

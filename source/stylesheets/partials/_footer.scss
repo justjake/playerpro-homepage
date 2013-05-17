@@ -14,7 +14,13 @@ footer.main {
     .container {
         margin-top: 2em;
         & > div {
-            padding: $col-padding;
+            padding: 0 $col-padding;
+        }
+    }
+
+    .center-col {
+        @include media($desktop) {
+            text-align: right;
         }
     }
 
@@ -22,8 +28,18 @@ footer.main {
         display: inline;
         a {
             display: inline-block;
+            @include media($desktop) {
+                padding-right: 0;
+                padding-left: $col-padding;
+            }
             padding-right: $col-padding;
             padding-bottom: $col-padding / 1.5;
+        }
+    }
+
+    ul {
+        @include media($desktop) {
+            margin-bottom: 0;
         }
     }
 
