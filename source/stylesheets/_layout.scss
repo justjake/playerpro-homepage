@@ -5,12 +5,19 @@
 
 @import "globals";
 
-$iphone-width: 480px;
-
-$global-header-height: 40px;
-$page-size: 1070px;
 $col-padding: 10px;
 
+// Global stylistic sizing
+$global-header-height: 40px;
+$page-size: 1070px;
+
+// breakpoints
+$iphone-width: 480px;
+$tablet-width: 768px;
+$widescreen-width: $page-size;
+
+
+// column sizing
 $data-col-size: 280px;
 $right-aux-col-size: 210px;
 $calculated-center-col-size: $page-size - ($col-padding + $data-col-size + $right-aux-col-size);
@@ -18,7 +25,10 @@ $calculated-center-col-size: $page-size - ($col-padding + $data-col-size + $righ
 $iphone  : new-breakpoint(max-width $iphone-width);
 $mobile  : $iphone;
 // $mobile  : new-breakpoint(max-width $mobile-width);
+$tablet: new-breakpoint(min-width $iphone-width max-width $tablet-width);
+// TODO: refactor this to a better name
 $desktop : new-breakpoint($iphone-width);
+$gt-tablet: new-breakpoint($tablet-width);
 $widescreen : new-breakpoint($page-size);
 
 // visual grid for devel
@@ -68,7 +78,10 @@ header.main, .page, .footer.main {
   height: 100%;
 
   & > .container {
-      padding-top: $global-header-height;
+      padding-top: $global-header-height * 2;
+      @include media($desktop) {
+          padding-top: $global-header-height;
+      }
       min-height: 100%;
   }
 }
@@ -115,11 +128,28 @@ header.main {
         padding-left: 0;
         padding-right: 0;
     }
+
+    @include media($tablet) {
+        display: block;
+        width: auto;
+        padding-right: $col-padding;
+        .card-sidebar {
+            float: left;
+            margin-right: $col-padding;
+            margin-bottom: $col-padding;
+        }
+        .module {
+            overflow: hidden;
+        }
+    }
 }
 
 .center-col {
     @include media($desktop) {
         display: table-cell;
+    }
+    @include media($tablet) {
+        padding-left: 0;
     }
 }
 
@@ -133,13 +163,18 @@ header.main {
 /* shrink everything for small phones */
 body {
     @include media($iphone) {
-        font-size: em(14px);
+        font-size: em(12px);
     }
 }
 
 /* column styling */
 
 .center-col {
+    @include media($tablet) {
+        .carousel {
+            display: none;
+        }
+    }
 }
 
 .left-data-col {
@@ -147,6 +182,7 @@ body {
         @include module;
         @include box-sizing(border-box);
         padding: $col-padding;
+        margin-bottom: $col-padding;
 
         p:last-child {
             margin: 0;

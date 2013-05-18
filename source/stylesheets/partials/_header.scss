@@ -4,10 +4,15 @@
 header.main {
 
    z-index: $layer-header;
+   @include clearfix;
 
   .shadow-hack {
       @include layer($layer-header);
-      @include position(absolute, 0px 0px 0 0px);
+      @include position(absolute, 0px 0px 0px 0px);
+      display: none;
+      @include media($gt-tablet) {
+          display: block;
+      }
       height: $global-header-height;
       background: $white;
       box-shadow: $header-box-shadow;
@@ -15,13 +20,17 @@ header.main {
 
   & > .container {
       @include layer($layer-header + 1);
+      @include clearfix;
+      background: $white;
+      box-shadow: $header-box-shadow;
       top: 0;
+      padding: 0 $col-padding;
       line-height: em($global-header-height);
-      height: $global-header-height;
+      //height: $global-header-height;
       color: $burnt-umber;
 
-      @include media($desktop) {
-          padding: 0 $col-padding;
+      @include media($gt-tablet) {
+          box-shadow: none;
       }
 
   }
@@ -29,11 +38,13 @@ header.main {
   .left-col, .center-col, .right-col {
       padding: 0;
       @include clearfix;
+      background: $white;
+      min-height: $global-header-height;
   }
 
   .left-col {
       float: left;
-      padding-left: $col-padding;
+      padding-right: $col-padding;
       @include media($desktop) {
           padding-right: $col-padding * 3;
       }
@@ -43,14 +54,19 @@ header.main {
   }
 
 
+  /* the min width sizing here effects how and when
+  the search bar wraps its own line in the header */
   .mid-col{
       overflow: hidden;
-      padding-left: $col-padding;
+      min-width: 120px;
+      @include media($widescreen) {
+          padding-left: $col-padding;
+      }
   }
 
   .right-col {
-      float: right;
       padding-left: $col-padding;
+      float: right;
       @include media($desktop) {
           padding-left: $col-padding * 3;
       }
@@ -116,6 +132,17 @@ header.main {
         //padding-right: $col-padding;
 
     }
+  }
+
+  .jewels {
+      float: left;
+      padding-right: $col-padding * 2;
+
+      ul {margin-bottom: 0;}
+      li {
+          display: inline;
+          position: relative;
+      }
   }
 
   .login-menu {

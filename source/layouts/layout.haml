@@ -10,7 +10,7 @@
     %title= page_title
     %meta{:content => page_description, :name => "description"}
     
-    %meta{:content => "width=device-width", :name => "viewport"}
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     
     -#Favicon Options:
     -#Update favicon_base.png in /source and middleman-favicon-maker will generate all the versions you need on 'middleman build'
@@ -19,6 +19,8 @@
     
     = stylesheet_link_tag "site"
     = javascript_include_tag "vendor/modernizr-2.6.2-respond.min"
+    / this is after Modernizr so Respond.js doesn't try to parse font-awesome for media queries
+    = stylesheet_link_tag "font-awesome/css/font-awesome.min.css"
   %body
     /[if lt IE 7] <p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p>
     = yield
